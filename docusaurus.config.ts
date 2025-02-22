@@ -78,12 +78,12 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Documentatie',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        // {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          href: 'https://github.com/LockBox-CS-S7',
+          label: 'LockBox - GitHub',
           position: 'right',
         },
       ],
@@ -95,9 +95,13 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Introductie',
               to: '/docs/intro',
             },
+            {
+              label: 'Project Proposal',
+              to: '/docs/HackIT/Project-Proposal',
+            }
           ],
         },
         {
@@ -125,13 +129,13 @@ const config: Config = {
               to: '/blog',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'LockBox on GitHub',
+              href: 'https://github.com/LockBox-CS-S7',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Rik de Goede. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
