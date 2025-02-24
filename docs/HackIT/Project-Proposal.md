@@ -12,7 +12,7 @@ Voor mijn individuele project wil ik graag een applicatie ontwikkelen voor het o
 - Het systeem moet beschermd zijn tegen malafide bestanden.
 - Gebruikersaccounts moeten goed beveiligd zijn om opgeslagen bestanden te beschermen.
 - Gebruikers moeten bestanden kunnen delen via tijdelijke URL's.
-- De bestanden moeten efficiënt worden opgeslagen om zo veel mogelijk opslagruimte te besparen. c
+- De bestanden moeten efficiënt worden opgeslagen om zo veel mogelijk opslagruimte te besparen.
 
 
 ### Mogelijke services:
