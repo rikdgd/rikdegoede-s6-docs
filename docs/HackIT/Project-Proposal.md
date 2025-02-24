@@ -21,3 +21,4 @@ Het is moeilijk om vooraf precies te zeggen welke verschillende services de appl
 - **File storage service** - Er zal een service nodig zijn voor het opslaan van bestanden, dit is namelijk de hoofd functionaliteit van de applicatie.
 - **User service** - Aangezien de applicatie gebruikers accounts zal bevatten is het waarschijnlijk ook handig om een service te maken voor het beheren van accounts. Zo kan de gebruiker bijvoorbeeld zijn/haar eigen account aanmaken of verwijderen.
 - **File sharing service** - De applicatie moet in staat zijn om bestanden te delen via een tijdelijke download URL. Dit kan mogelijk beter worden toegevoegd aan de *File storage service*, maar mogelijk is het beter om dit op te splitsen.
+- **File scanning service** - De bestanden die gebruikers uploaden kunnen potentieel malware bevatten. Om te voorkomen dat gebruikers deze bestanden uploaden kan een file scanning service worden gebruikt om alle geüploade bestanden te controleren. 
