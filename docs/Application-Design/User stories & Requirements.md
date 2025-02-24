@@ -1,14 +1,16 @@
 ---
 sidebar_position: 1
 ---
+Hier zijn de user stories en non-functional requirements voor de LockBox applicatie terug te lezen. De user stories geven aan welke functionaliteiten de applicatie zal moeten bezitten, terwijl de non-functional requirements aangeven aan welke eisen de applicatie moet voldoen. 
+
 ## User stories
 
-User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie nodig gaat hebben in kaart te brengen. Ze geven aan hoe verschillende soorten gebruikers de applicatie moeten kunnen gebruiken. 
+User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie nodig heeft in kaart te brengen. Ze geven aan hoe verschillende soorten gebruikers de applicatie moeten kunnen gebruiken. 
 
-1. Als gebruiker wil ik een bestand *veilig* kunnen opslaan.
+1. Als gebruiker wil ik bestanden *veilig* kunnen opslaan.
 2. Als gebruiker wil ik een opgeslagen bestand kunnen downloaden.
-3. Als gebruiker wil ik een bestanden kunnen verwijderen van de applicatie.
-4. Als gebruiker wil ik dat er een account systeem aanwezig is.
+3. Als gebruiker wil ik bestanden kunnen verwijderen van de applicatie.
+4. Als gebruiker wil ik dat er een accountsysteem aanwezig is.
 	1. Account aanmaken.
 	2. Inloggen.
 	3. Uitloggen.
@@ -17,7 +19,7 @@ User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie
 6. Als gebruiker wil ik bestanden kunnen delen via een tijdelijke URL.
 7. Als admin wil ik in staat zijn bestanden te verwijderen, van zowel mijn eigen als andermans account.
 8. Als admin wil ik in staat zijn andermans account te verwijderen. 
-9. Als admin wil ik inzicht hebben op verschillende statistieken van de applicatie. 
+9. Als admin wil ik inzicht hebben in verschillende statistieken van de applicatie. 
 
 ---
 ## Non-functional requirements
@@ -33,10 +35,10 @@ De uitgewerkte non-functional requirements geven aan welke eisen zijn opgesteld 
 7. Het opslaan van een bestand duurt maximaal 1 minuut. 
 8. Het verwijderen van een bestand duurt maximaal 1 minuut.
 9. Het verwijderen van een account duurt maximaal 5 minuten.
-10. Het systeem moet minimaal 500.000 gebruikers te gelijkertijd aankunnen.
+10. Het systeem moet minimaal 500.000 gebruikers tegelijkertijd aankunnen.
 11. Het systeem moet horizontaal schalen om meer/minder resources te gebruiken wanneer nodig. 
 12. Het systeem bevat een **RBAC** systeem zodat iedere gebruiker de juiste rechten bezit. 
 13. Het systeem moet voldoen aan de eisen van **GDPR**.
-14. Data moet worden gebackup-ed iedere 5 minuten.
-15. Applicatie en systeem logs worden bewaard voor op zijn minst 30 dagen.
+14. Data moet worden gebackupd iedere 5 minuten.
+15. Applicatie en systeem logs worden bewaard voor minstens 30 dagen.
 16. Het systeem bevat real-time monitoring van API gebruik, beschikbare opslag en performance.
