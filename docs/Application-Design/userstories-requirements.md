@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 ---
+# User stories & Requirements 
+
 Hier zijn de user stories en non-functional requirements voor de LockBox applicatie terug te lezen. De user stories geven aan welke functionaliteiten de applicatie zal moeten bezitten, terwijl de non-functional requirements aangeven aan welke eisen de applicatie moet voldoen. 
 
 ## User stories
@@ -11,14 +13,18 @@ User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie
 2. Als gebruiker wil ik een opgeslagen bestand kunnen downloaden.
 3. Als gebruiker wil ik bestanden kunnen verwijderen van de applicatie.
 4. Als gebruiker wil ik dat er een accountsysteem aanwezig is.
-	1. Account aanmaken.
-	2. Inloggen.
-	3. Uitloggen.
-	4. Account verwijderen.
-5. Als gebruiker wil ik meldingen ontvangen van belangrijke gebeurtenissen. 
+	1. Als gebruiker wil ik een account kunnen aanmaken.
+	2. Als gebruiker wil ik kunnen inloggen op een account.
+	3. Als gebruiker wil ik kunnen uitloggen van een account.
+	4. Als gebruiker wil ik mijn account kunnen verwijderen.
+5. Als gebruiker wil ik meldingen ontvangen van *belangrijke gebeurtenissen*. 
 6. Als gebruiker wil ik bestanden kunnen delen via een tijdelijke URL.
 7. Als admin wil ik in staat zijn bestanden te verwijderen, van zowel mijn eigen als andermans account.
-8. Als admin wil ik in staat zijn andermans account te verwijderen. 
+8. Als admin wil ik in staat zijn accounts te beheren.
+	1. Als admin wil ik een overzicht hebben van alle bestaande accounts.
+	2. Als admin wil ik een account kunnen aanmaken.
+	3. Als admin wil ik een account kunnen aanpassen.
+	4. als admin wil ik een account kunnen verwijderen.
 9. Als admin wil ik inzicht hebben in verschillende statistieken van de applicatie. 
 
 ---
