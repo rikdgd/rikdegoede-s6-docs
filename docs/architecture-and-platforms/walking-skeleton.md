@@ -8,7 +8,7 @@ Er zijn in het design van de LockBox applicatie een aantal keuzes gemaakt wat be
 Een walking skeleton is een minimalistische implementatie van de architectuur. Dit wil zeggen dat een walking skeleton **geen** functionaliteit zal bevatten. Het doel van een walking skeleton is om te controleren dat het gemaakte design uitvoerbaar is. 
 
 ## Componenten
-De componenten die zijn toegevoegd aan de walking skeleton zijn in de tabel zichtbaar. De componenten zullen allemaal zo minimalistisch als mogelijk worden opgezet om complexiteit te voorkomen. 
+De componenten die zijn toegevoegd aan de walking skeleton zijn in de tabel zichtbaar. De componenten zijn allemaal zo minimalistisch mogelijk opgezet om complexiteit te voorkomen. 
 
 | Component           | Gebruikte technologieën                                 | Beschrijving                                                                                                                                                                                                      |
 | ------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
