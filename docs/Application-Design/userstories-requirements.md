@@ -26,7 +26,7 @@ User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie
 	3. Als admin wil ik een account kunnen aanpassen.
 	4. als admin wil ik een account kunnen verwijderen.
 9. Als admin wil ik inzicht hebben in verschillende statistieken van de applicatie. 
-
+<br/>
 ---
 ## Non-functional requirements
 
