@@ -4,7 +4,7 @@ sidebar_position: 2
 # Design  Document 
 
 ## Inleiding
-Dit document probeert het design van de gebouwde applicatie duidelijk te maken aan de hand van verschillende diagrammen en bijbehorende documentatie. Zo is een "containerdiagram" uitgewerkt om het design van de applicatie duidelijk te maken. Ook is er een "misuse-case diagram" opgezet om te achterhalen wat de mogelijke zwakke plekken zijn van de applicatie op het gebied van security.
+Dit document probeert het design van de gebouwde applicatie duidelijk te maken aan de hand van verschillende diagrammen en bijbehorende documentatie. Zo is een "containerdiagram" uitgewerkt om het design van de applicatie duidelijk te maken. Ook is er een "misuse-case diagram" opgezet om te achterhalen wat de mogelijke zwakke plekken zijn van de applicatie op het gebied van security. 
 
 ---
 ## C4 diagrammen
