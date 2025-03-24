@@ -1,7 +1,7 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
-# Walking skeleton
+# Walking Skeleton
 
 Er zijn in het design van de LockBox applicatie een aantal keuzes gemaakt wat betreft de gebruikte technologieën. Om te controleren of de bedachte tech-stack daadwerkelijk goed uitpakt is een *"walking skeleton"* opgezet. 
 
