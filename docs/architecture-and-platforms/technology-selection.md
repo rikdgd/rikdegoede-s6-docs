@@ -10,7 +10,7 @@ Om voor het LockBox project een goede keuze te maken zijn een aantal criteria op
 ## Criteria
 De belangrijkste criteria voor het LockBox project zijn hier terug te zien met een korte beschrijving erbij. 
 
-- **Scalability** - De LockBox applicatie zal een groot aantal gebruikers aan moeten kunnen. Hiervoor is het daarom belangrijk dat de gebruikte technologieën in staat zijn mee te schalen met het aantal gebruikers.
+- **Scalability** - De LockBox applicatie zal een groot aantal gebruikers aan moeten kunnen. Hiervoor is het daarom belangrijk dat de gebruikte technologieën in staat zijn mee te schalen met het aantal gebruikers. 
 - **Active community** - Een active community helpt enorm bij het ontwikkelen van software, er is dan namelijk meer hulp online te vinden. 
 - **Documentatie** - Het product moet goed gedocumenteerd zijn. Dit maakt het makkelijker om geavanceerde functionaliteiten in te bouwen, en de technologie efficient te gebruiken. 
 - **Actief onderhouden** - De technologie moet actief onderhouden zijn. Software die niet langer actief onderhouden wordt zal vroeg of laat security vulnerabilities bevatten. 
@@ -18,7 +18,8 @@ De belangrijkste criteria voor het LockBox project zijn hier terug te zien met e
 - **Security** - Het product moet een focus hebben op security. Security is een belangrijk aspect voor enterprise software in het algemeen. Voor LockBox is dit niet minder waar aangezien gebruikers geregeld gevoelige bestanden zullen uploaden. 
 - **Ontwikkel snelheid** - Er is maar 1 semester de tijd om aan het LockBox project te werken. Deze limitering maakt dat het product een snel ontwikkel proces moet ondersteunen, en niet limiteren. 
 - **Ervaring bij developers** - Of er al wel of geen ervaring is bij de ontwikkelaar (Rik de Goede) van het LockBox project. Als er al ervaring is met het product scheelt dit enorm in ontwikkel snelheid.
-
+- **Beschikbaarheid AES-GCM** - De LockBox applicatie gaat bestanden versleutelen met `AES-GCM` (256 bits keys). Het is daarom belangrijk dat er een goed onderhouden en veilige library aanwezig is voor dit algoritme. Dit geldt voor de frontend van het project, zowel als de backend. 
+- **File size support** - De LockBox applicatie zal veel bestanden moeten bewaren die gebruikers opslaan. Deze bestanden mogen een grote hebben tot `1 GB` volgens non-functional requirement 17. Dit wil wel zeggen dat de database dit aan moet kunnen.
 
 ## Keuze Matrices
 
@@ -34,6 +35,7 @@ De belangrijkste criteria voor het LockBox project zijn hier terug te zien met e
 | Security           | 2      | x    | x      | x      | x          | x     | x     |
 | Ontwikkel snelheid | 2      |      |        | x      | x          | x     | x     |
 | Ervaring           | 1      | x    | x      | x      | x          |       | x     |
+
 1. **Express.js / Flask:** 14 pts
 2. **Rocket / Rails:** 13 pts
 3. **.NET / Spring:** 12 pts
@@ -67,9 +69,12 @@ De belangrijkste criteria voor het LockBox project zijn hier terug te zien met e
 | Security           | 2      | x       | x          | x     | x     |
 | Ontwikkel snelheid | 2      | x       |            |       | x     |
 | Ervaring           | 1      | x       |            | x     |       |
-1. **MongoDB:** 13 pts
-2. **MySQL / Redis:** 12 pts
-3. **PostgreSQL:** 11 pts
+| File size support  | 3      | x       |            | x     |       |
+
+1. **MongoDB:** 16 pts
+2. **MySQL:** 15 pts
+3. **Redis:** 12 pts
+4. **PostgreSQL:** 11 pts
 
 *Note: MySQL heeft enkel een goede scalability bij gebruik van de enterprise edition vanwege de "thread pooling" functionaliteit.*
 
@@ -90,5 +95,6 @@ Wel moet opgemerkt worden dat voor een eerste proof of concept mogelijk React.js
 **Databases** <br/>
 *MongoDB* is de winnaar bij de database vergelijking. Het enige nadeel aan MongoDB is het feit dat de software niet open source is. 
 
-Op de tweede plaats komen *MySQL* en *Redis*. MySQL heeft als enige nadeel de ontwikkel snelheid. Dit komt door het feit SQL databases vaak meer aandacht nodig hebben dan NoSQL databases. <br/>
-Redis had kunnen winnen als zij hun software open source hadden gelaten. Redis heeft toch nog een ander nadeel, het is namelijk standaard enkel een in-memory database. Om Redis persistent te maken is ook extra setup nodig. 
+Op de tweede plaats staat *MySQL*. MySQL heeft als enige nadeel de ontwikkel snelheid. Dit komt door het feit SQL databases vaak meer aandacht nodig hebben dan NoSQL databases. 
+
+*Redis* heeft best goed gescored in de vergelijking. Redis heeft echter wel een groot nadeel, het is namelijk standaard enkel een in-memory database. Om Redis persistent te maken is ook extra setup nodig. Buiten de extra setup tijd, maakt dit Redis ook nog een een slechte keuze voor het opslaan van bestanden. Dit zal namelijk (tijdelijk) enorm veel memory kosten. 

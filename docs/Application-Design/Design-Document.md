@@ -15,12 +15,22 @@ De onderstaande containerdiagram toont het ontwerp van de LockBox applicatie. He
 
 ![C2-diagram](./C2-LockBox.png "C2 lockBox")
 
-Er zijn een aantal keuzes gemaakt met betrekking tot de non-functional requirements. Als eerst is de keuze gemaakt om gebruik te maken van een *microservice architecture*. De applicatie heeft namelijk de non-functional requirement: *"De applicatie heeft een up-time van **98%**"*. Een microservice architectuur kan hier bij helpen aangezien services makkelijk automatisch vervangen kunnen worden wanneer ze tegen een runtime error aanlopen.
+**Micro Services** <br/>
+Er zijn een aantal keuzes gemaakt met betrekking tot de non-functional requirements. Als eerst is de keuze gemaakt om gebruik te maken van een *microservice architecture*. De applicatie heeft namelijk de non-functional requirement: *"Het systeem moet horizontaal schalen om meer/minder resources te gebruiken wanneer nodig"*. Een microservice architectuur maakt het mogelijk om horizontaal te schalen. Er kunnen namelijk (automatisch) meer services worden gestart om een grotere load te verdragen. Verder heeft LockBox de non-functional requirement: *"De applicatie heeft een up-time van 99.3%"*. Een microservice architectuur kan hier bij helpen aangezien services makkelijk automatisch vervangen kunnen worden wanneer ze tegen een runtime error aanlopen.
 
+**Message Broker** <br/>
+De services zullen voor onderlinge communicatie gebruik maken van een *message broker*. De reden hiervoor is zodat de services niet op elkaars antwoord hoeven te wachten. Zo kunnen de services hun taken sneller voltooien, waardoor ze meer tijd over houden voor andere taken. Dit gaat helpen om te voldoen aan de non-functional requirements betreffende de bestand upload/verwijder tijd. 
+
+**API Gateway** <br/>
+Zoals te zien zal er ook een API gateway worden gebruikt in de architectuur van LockBox. De reden hiervoor is zodat de frontend maar één API hoeft aan te spreken, die van de gateway. Dit maakt het voordelig voor de onderhoudbaarheid van de software. Ook kan de API gateway worden gebruikt om extra security controles uit te voeren op binnenkomende requests. 
+
+**Accounts** <br/>
 De keuze is gemaakt om een external account systeem te gebruiken zodat JWT tokens gebruikt kunnen worden voor authenticatie. Dit had uiteraard ook in-house ontwikkeld kunnen worden, maar dit brengt veel security risico's met zich mee.
 
-Ook is de keuze gemaakt om **Rust** te gebruiken voor de "File storage service". Dit omdat deze functionaliteit (het opslaan van bestanden) de kern is van de gehele applicatie. Dit wil zeggen dat deze service waarschijnlijk een grote load zal ontvangen, en Rust zou daarom kunnen helpen bij de performance van deze service. 
+**Rust** <br/>
+Ook is de keuze gemaakt om de *Rust* programmeer taal te gebruiken voor de "File storage service". Dit omdat deze functionaliteit (het opslaan van bestanden) de kern is van de gehele applicatie. Dit wil zeggen dat deze service waarschijnlijk een grote load zal ontvangen, en Rust zou daarom kunnen helpen bij de performance van deze service. 
 
+**User Service** <br/>
 Verder is te zien dat er een "User service" ontwikkeld zal worden, deze keuze heeft met meerdere non-functional requirements te maken. De keuze is echter voornamelijk gemaakt om het mogelijk te maken om accounts te verwijderen, zowel als alle data en opgeslagen bestanden die hierbij horen. Het account systeem zal worden ge-out-sourced naar een cloud provider, maar de gekoppelde bestanden zullen worden opgeslagen in een eigen database. Verder is de keuze gemaakt om TypeScript te gebruiken vanwege de grote hoeveelheid support voor de taal vanuit de meeste cloud services. 
 
 ---

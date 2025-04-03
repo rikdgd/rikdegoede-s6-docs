@@ -32,19 +32,29 @@ User stories zijn gebruikt om de functionaliteiten die de **LockBox** applicatie
 
 De uitgewerkte non-functional requirements geven aan welke eisen zijn opgesteld voor de **LockBox** applicatie. Deze eisen betreffen de algemene werking van de applicatie, maar ook de performance en security worden meegenomen.
 
-1. Opgeslagen bestanden worden versleuteld met AES-GCM met 256 bits keys.
-2. Bestanden worden enkel versleuteld over het netwerk verstuurd.
-3. De app maakt gebruik van JSON web tokens (JWT) voor authenticatie.
-4. De applicatie maakt gebruik van HTTPS (TLS).
-5. Gebruikers gegevens en geüploade bestanden worden verwijderd bij account verwijdering. 
-6. De applicatie heeft een up-time van **98%**.
-7. Het opslaan van een bestand duurt maximaal 1 minuut. 
-8. Het verwijderen van een bestand duurt maximaal 1 minuut.
-9. Het verwijderen van een account duurt maximaal 5 minuten.
-10. Het systeem moet minimaal 500.000 gebruikers tegelijkertijd aankunnen.
-11. Het systeem moet horizontaal schalen om meer/minder resources te gebruiken wanneer nodig. 
-12. Het systeem bevat een **RBAC** systeem zodat iedere gebruiker de juiste rechten bezit. 
-13. Het systeem moet voldoen aan de eisen van **GDPR**.
-14. Data moet worden gebackupd iedere 5 minuten.
-15. Applicatie en systeem logs worden bewaard voor minstens 30 dagen.
-16. Het systeem bevat real-time monitoring van API gebruik, beschikbare opslag en performance.
+### Must have
+1. Opgeslagen bestanden worden versleuteld met `AES-GCM` met 256 bits keys.
+2. Het systeem moet horizontaal schalen om meer/minder resources te gebruiken wanneer nodig. 
+
+### Should have
+1. Bestanden worden enkel versleuteld over het netwerk verstuurd.
+2. De app maakt gebruik van JSON web tokens (JWT) voor authenticatie.
+3. De applicatie maakt gebruik van `HTTPS`.
+4. Gebruikers gegevens en geüploade bestanden worden verwijderd bij account verwijdering. 
+5. De applicatie heeft een up-time van `99.3%`. <br/>
+   *Het is belangrijk dat gebruikers zo goed als altijd toegang hebben tot hun opgeslagen bestanden. Het zou niet juist zijn als gebruikers meer dan 10 minuten per dag niet bij hun bestanden kunnen. Dit resulteert in een up-time percentage van `99.3%`.*
+6. Het opslaan van een bestand duurt maximaal 1 minuut. 
+7. Het verwijderen van een bestand duurt maximaal 1 minuut.
+8. Het verwijderen van een account duurt maximaal 5 minuten.
+9. Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen. <br/>
+   *De verwachting is dat LockBox mogelijk meerdere miljoenen gebruikers zal hebben. Deze zullen niet allemaal tegelijkertijd de applicatie gebruiken, dit zal uiterlijk liggen rond de 2 uur per dag in extreme gevallen. Stel de applicatie heeft 10.000.000 gebruikers die de applicatie allemaal 2 uur per dag gebruiken, dan resulteert dit in `10,000,000 * (2 / 24) = 833,333` gelijktijdige gebruikers. Dit is naar boven afgerond tot `900,000` om er zeker van te zijn dat het systeem het aantal gebruikers aan kan.*
+10. Het systeem bevat een `RBAC` systeem zodat iedere gebruiker de juiste rechten bezit. 
+11. Het systeem moet voldoen aan de eisen van **GDPR**.
+12. Data moet iedere 5 minuten worden gebackuped.
+13. Applicatie en systeem logs worden bewaard voor minstens 30 dagen.
+14. Het systeem bevat real-time monitoring van API gebruik, beschikbare opslag en performance.
+15. Gebruikers kunnen bestanden opslaan met een maximale grote van `1 GB`.
+
+
+Zoals te zien zijn er twee non-functional requirements die vallen onder de categorie *"must have"*, dit zijn de belangrijkste requirements voor het LockBox project. Gedurende dit semester zal daarom de focus vooral op deze non-functional requirements liggen. De eerste requirement is belangrijk om te zorgen dat de gebruiker zijn bestanden daadwerkelijk veilig online kan opslaan. De andere requirement is extra belangrijk vanwege het grote aantal gebruikers dat de applicatie zal hebben. Altijd de applicatie op het volle vermogen laten draaien zou te duur zijn, dus moet de applicatie horizontaal kunnen schalen.
+
