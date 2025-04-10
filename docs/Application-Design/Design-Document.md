@@ -34,6 +34,7 @@ Ook is de keuze gemaakt om de *Rust* programmeer taal te gebruiken voor de "File
 Verder is te zien dat er een "User service" ontwikkeld zal worden, deze keuze heeft met meerdere non-functional requirements te maken. De keuze is echter voornamelijk gemaakt om het mogelijk te maken om accounts te verwijderen, zowel als alle data en opgeslagen bestanden die hierbij horen. Het account systeem zal worden ge-out-sourced naar een cloud provider, maar de gekoppelde bestanden zullen worden opgeslagen in een eigen database. Verder is de keuze gemaakt om TypeScript te gebruiken vanwege de grote hoeveelheid support voor de taal vanuit de meeste cloud services. 
 
 ---
+
 ## Misuse-case diagram
 
 Misuse-case diagrammen kunnen worden gebruikt om overzichtelijk te maken op welke manieren een applicatie mogelijk misbruikt kan worden. Dit doet een misuse-case diagram door aan te geven wie potentieel de applicatie zou willen misbruiken. Vervolgens kan beredeneerd worden hoe deze verschillende actoren misbruik zouden kunnen maken, bijvoorbeeld XSS aanvallen op een frontend. Al deze potentiële strategieën kunnen vervolgens gekoppeld worden aan de verschillende functionaliteiten binnen de applicatie. Zo is heel duidelijk zichtbaar welke services gevaar lopen, en voor wat voor aanvallen.
