@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
 ---
-
 # Introductie
 
 In 2014 heb ik de keuze gemaakt om naar de Nieuwste School in Tilburg te gaan. Een van de grootste redenen hiervoor was dat de leerlingen hier voornamelijk op de laptop werkten, en veel projectmatig aan de slag gaan. Hier is dan ook snel een hobby uit ontstaan, het maken van software. Dit begon met simpele spelletjes in Construct 2, maar breidde zich al snel uit naar Processing (Java) en Python.
