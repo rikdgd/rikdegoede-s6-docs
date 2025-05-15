@@ -18,6 +18,4 @@ Het belangrijkste voordeel van messaging voor enterprise software is het feit da
 
 Stel een gebruiker wil al zijn geplaatste berichten ophalen. Normaal gesproken zou dan een bepaalde service worden aangesproken via bijvoorbeeld een REST api, en deze haalt dan alle gemaakte berichten op. Het nadeel is echter dat het ophalen van de berichten even kan duren, en al deze tijd is de applicatie aan het wachten tot de berichten zijn opgehaald. Deze wachttijd is ongewenst aangezien de applicatie tijdens het wachten niets ander kan doen. 
 
-In het geval van messaging zou dit heel anders verlopen. Dit zou namelijk betekenen dat er in een message queue een bericht wordt achtergelaten dat aangeeft "ik wil alle berichten ophalen". Zodra dit bericht verstuurd is kan de service al verder met zijn werk. Er hoeft niet actief gewacht te worden aangezien het antwoord vanzelf verschijnt in de queue, er hoeft geen verbinding onderhouden te worden. 
-
-(Dit maakt wel de broker van groot belang!!!)
+In het geval van messaging zou dit heel anders verlopen. Dit zou namelijk betekenen dat er in een message queue een bericht wordt achtergelaten dat aangeeft "ik wil alle berichten ophalen". Zodra dit bericht verstuurd is kan de service al verder met zijn werk. Er hoeft niet actief gewacht te worden aangezien het antwoord vanzelf verschijnt in de queue. 
