@@ -7,9 +7,6 @@ Er is geen standaard manier om een DevSecOps proces in te richten. Dit komt natu
 
 
 ## Change management
-- Use of version control (e.g., Git branches for features, pull requests)
-- Code reviews and approval process
-
 Voor het beheren van veranderingen/updates aan de software wordt gebruik gemaakt van version control, hiervoor is de keuze gemaakt om Git te gebruiken aangezien dit veel wordt gebruikt in de industrie. De Git repositories worden op GitHub gehost om samenwerken makkelijker te maken. 
 
 ### Branching strategy
@@ -54,9 +51,6 @@ In het geval dat (sommige) gebruikers onbedoelde rechten bezitten zullen deze mo
 ---
 
 ## Security Management
-- Secure coding practices
-- Secrets management (e.g., using `.env`, avoiding secrets in repos)
-
 Bij het ontwikkelen van software zijn er veel verschillende risico's. Een van de gebruikte packages kan een vulnerability bevatten, gevoelige data kan perrongeluk in de code terechtkomen, of de ontwikkelaar kan zelf een fout maken in zijn/haar geschreven code. Het voorkomen van deze risico's is daarom een onmogelijke taak om met de hand te doen, hier moet een andere strategie voor gebruikt worden.
 
 Voor het voorkomen van vulnerabilities in software zijn twee stappen nodig, namelijk het detecteren van vulnerabilities en het oplossen ervan. Hoe deze twee stappen worden toegepast in het LockBox project is hier in meer detail te lezen.

@@ -9,7 +9,7 @@ Er zijn veel verschillende manieren waarop software applicaties met elkaar kunne
 ## "Message queues"
 Het onderwerp messaging is groot, maar de basis is best makkelijk te begrijpen. Het idee achter messaging is namelijk dat berichten niet direct van service naar service worden verstuurd, maar naar een soort algemene berichten box. Wil een ander een bericht uitlezen, dan moet deze ook opgevraagd worden bij de berichten box, en niet bij de service. De diagram hier beneden visualiseert hoe dit eruit ziet.
 <br/>
-![messaging example](./messaging-example.png)
+![messaging example](messaging-example.png)
 
 Zoals zichtbaar komen service A en service B nooit direct met elkaar in contact. Beide services roepen de message broker aan om berichten te versturen. 
 
