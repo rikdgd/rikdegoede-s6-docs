@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Microservice architectuur
+# Introductie
 In de hedendaagse wereld worden soms hoge eisen gesteld van software. Software moet geregeld in staat zijn grote hoeveelheden gebruikers tegelijkertijd aan te kunnen, en dit is een enorme opgave. Hier zijn verschillende strategieën en patronen voor die samen kunnen helpen dit doel te verwezenlijken. Een van deze patronen is de zogeheten *"microservice architectuur"*. Hier zal in meer details worden uitgelegd wat een microservice architectuur inhoud, wat de voor- en nadelen ervan zijn, en hoe het is geïmplementeerd in het LockBox project. 
 
 ## Wat is een microservice architectuur?
