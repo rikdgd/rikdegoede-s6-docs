@@ -14,10 +14,41 @@ De eerste stap om monitoring mogelijk te maken, is om te zorgen dat er data is d
 
 Kubernetes genereert van zichzelf metrics, dit maakt het makkelijk om het cluster zelf in de gaten te houden. Voor het monitoren van services zal de ontwikkelaar er zelf voor moeten zorgen dat metrics worden gegenereerd. 
 
+#### Metrics generatie in LockBox
+In LockBox worden door de "notification-service" metrics gegenereerd. Deze metrics worden voornamelijk gebruikt om de algemene status van de applicatie te monitoren. Om dit te implementeren is als eerst een metric server aan de microservice toegevoegd:
+```cs
+// Start collecting metrics for Prometheus  
+using var server = new Prometheus.MetricServer(port: 1234);  
+server.Start();
+```
+
+Vervolgens moet ook duidelijk worden gemaakt waar de metrics te vinden zijn voor andere services zodat een metric server (zoals Prometheus) deze kan vinden. Hiervoor zijn de volgende annotations aan de Kubernetes `deployment` toegevoegd:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: lockbox-notification-service
+spec:
+	replicas: 1
+	selector:
+		matchLabels:
+			app: lockbox-notification-service
+	template:
+		metadata:
+			labels:
+				app: lockbox-notification-service
+			annotations:  # Add annotations for Prometheus metric server
+				prometheus.io/scrape: "true"
+				prometheus.io/port: "1234"
+				prometheus.io/path: "/metrics"
+```
+
 ### 2. Metric server in Kubernetes cluster (Prometheus)
 De volgende stap is om te zorgen dat de metrics worden opgevangen en verwerkt om de data overzichtelijk te maken. Een veel gebruikte, open-source tool die hiervoor ingezet kan worden is **Prometheus**. 
 
 Prometheus is in staat metrics te verzamelen en interpreteren. Dit maakt het mogelijk om acties te ondernemen aan de hand van de status van het cluster of verschillende microservices. Zo kan Prometheus bijvoorbeeld een notificatie sturen wanneer de algemene load van het cluster te hoog wordt, of wanneer een bepaalde service te traag reageert. Dit zorgt ervoor dat de ontwikkelaars op tijd problemen kunnen herkennen en verhelpen. 
+In het geval van de LockBox applicatie kan prometheus bijvoorbeeld gebruikt worden om de gebruikte hoeveelheid memory in de gaten te houden. Zo kan deze bijvoorbeeld in een graph getoond worden:
+![prometheus .NET graph](./prometheus-dotnet-graph.png)
 
 #### Prometheus installatie:
 ```sh
@@ -29,7 +60,6 @@ helm repo update
 
 # Install prometheus in the default namespace of the k8s cluster.
 helm install prometheus prometheus-community/prometheus -n default
-
 ```
 
 ### 3. Grafana deployment
