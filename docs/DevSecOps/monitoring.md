@@ -6,8 +6,24 @@ Monitoring is het proces van het continu of periodiek verzamelen, analyseren en 
 
 Voor het LockBox project zal ook monitoring worden ingezet. Het doel hiervan is om altijd een overzicht te hebben van de status van de verschillende micro-services en het kubernetes cluster. Ook is het met behulp van monitoring  makkelijker om te garanderen dat de applicatie voldoet aan de [non-functional requierements](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements). 
 
+## Belangrijke metrics voor LockBox
+Monitoring implementeren is vrij makkelijk, het is hierbij vooral belangrijk dat de juiste gegevens worden gemonitored. Voor LockBox zijn een aantal punten van extra belang voor monitoring. Welke punten dit zijn, en waarom deze belangrijk zijn, is hier terug te lezen.
+
+### File uploads/downloads
+De LockBox applicatie is bedoeld voor gebruikers om bestanden veilig te bewaren. Dit brengt echter een aantal risico's met zich mee, gebruikers zouden bijvoorbeeld de applicatie kunnen gebruiken om malware te verspreiden. Dit is uiteraard niet de bedoeling. Verder zouden problemen bij het uploaden/downloaden van bestanden voor problemen kunnen zorgen aangezien dit betekend dat gebruikers de applicatie niet kunnen gebruiken. Dit zou veel geld kunnen kosten, daarom is het belangrijk deze functionaliteiten goed te monitoren. 
+
+### Beschikbare opslag
+De beschikbare hoeveelheid opslag van de applicatie moet ook goed gemonitored worden, dit is ook terug te lezen in [non-functional requirement 14](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements). Dit is net als file downloads/uploads belangrijk om te zorgen dat de applicatie fatsoenlijk gebruikt kan worden. Wanneer de toegankelijke hoeveelheid storage te laag wordt, moet hier op tijd op ingegrepen kunnen worden. 
+
+### Backups
+Van de applicatie data zullen geregeld backups worden gemaakt om dataverlies te vermijden, dit is ook gedefinieerd in de non-funcional requirements (zie [NF-12](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements)). Mocht er iets niet goed lopen bij het maken van backups, dan zou dit met een beetje pech voor grote problemen kunnen zorgen. Daarom is het belangrijk om de automatische backups te monitoren. Het beste zou zijn om hier ook een alert op te zetten in het geval dat een backup faalt. Dit zou dan namelijk zo snel mogelijk opgelost moeten worden.
+
+### Cluster gezondheid
+De LockBox applicatie draait in Kubernetes om horizontaal te kunnen schalen. Dit is belangrijk voor LockBox om de grote hoeveelheid gebruikers aan te kunnen zonder te veel resources te gebruiken. Deze horizontale schaling moet wel blijven werken om te vermijden dat de applicatie te veel of te weinig resources gebruikt. Door dit goed te monitoren kunnen extra kosten vermeden worden. 
+
+---
 ## Implementatie in LockBox
-*Hier is terug te lezen hoe monitoring is opgezet voor het LockBox project.*
+Hier is terug te lezen hoe monitoring is opgezet voor het LockBox project. Alle stappen die zijn gemaakt om monitoring op te zetten zijn hier uitgewerkt en uitgelegd. 
 
 ### 1. Metrics genereren
 De eerste stap om monitoring mogelijk te maken, is om te zorgen dat er data is die gemonitord kan worden. Dit type data wordt ook wel *"metrics"* genoemd. Metrics bevatten vaak informatie zoals: response time, up-time, error logs, HTTP requests, en mogelijk nog veel meer. 
@@ -27,20 +43,20 @@ Vervolgens moet ook duidelijk worden gemaakt waar de metrics te vinden zijn voor
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-	name: lockbox-notification-service
+  name: lockbox-notification-service
 spec:
-	replicas: 1
-	selector:
-		matchLabels:
-			app: lockbox-notification-service
-	template:
-		metadata:
-			labels:
-				app: lockbox-notification-service
-			annotations:  # Add annotations for Prometheus metric server
-				prometheus.io/scrape: "true"
-				prometheus.io/port: "1234"
-				prometheus.io/path: "/metrics"
+  replicas: 1
+  selector:
+	matchLabels:
+	  app: lockbox-notification-service
+  template:
+	metadata:
+	  labels:
+		app: lockbox-notification-service
+	  annotations:  # Add annotations for Prometheus metric server
+		prometheus.io/scrape: "true"
+		prometheus.io/port: "1234"
+		prometheus.io/path: "/metrics"
 ```
 
 ### 2. Metric server in Kubernetes cluster (Prometheus)
@@ -76,7 +92,6 @@ In het LockBox project is ook gebruik gemaakt van Grafana, in de afbeelding hier
 De volgende `YAML` configuratie is gebruikt om Grafana te deployen in het kubernetes cluster:
 
 ```yaml
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
