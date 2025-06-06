@@ -103,5 +103,52 @@ resources:
     cpu: "40m"
 ```
 
+
+Ook was de visualisatie in Grafana van de `notification-service total heap allocation` niet heel zinvol. Dit totaal wordt namelijk niet het huidige gebruik mee bedoeld, maar het totaal in de gehele geschiedenis van de service. Daarom blijft deze altijd stijgen, het zou beter zijn om het huidige heap memory gebruik te zien. Belangrijker nog is om het huidige aantal verbindingen te zien, daarom is hiervoor nu een visualisatie opgezet.
+
+Tot slot is het mogelijk beter om de volgende test langer te laten duren. Daarom zal dit keer een test van 3 minuten worden uitgevoerd. 
+
 #### Resultaten:
-bla bla bla
+De resultaten zijn helaas niet veel belovend. De meeste requests van Locust falen, 98% om precies te zijn. 
+
+![locust test 4](./locust-test-4.png)
+
+Op het Grafana dashboard is echter wel te zien dat de service gedurende de test 10 connecties had zoals verwacht. Dit kan mogelijk komen doordat de requests wel worden ontvangen, maar zo lang duren om af te ronden dat locust het ziet als een gefaald request. Verder is te zien dat de pod ongeveer het aangegeven memory limiet van `40Mi` wel behaald. 
+
+*(De rode streep geeft het moment waarom het maximale aantal verbindingen is bereikt aan.)*
+![grafana test 4](./grafana-test-4.png)
+
+Toch is het aantal pods gedurende de test niet gestegen, terwijl de service de load duidelijk niet aan goed aankon. Sterker nog, in Kubernetes is de deployment zo geconfigureerd dat deze al zou moeten schalen wanneer de gemiddelde memory load van alle pods op 50% ligt. Toch is de deployment niet gaan schalen bij een load van rond de 100%.
+
+
+### Test 5 (het werkt)
+Tot slot is een laatste test uitgevoerd met een kleinere gesimuleerde load op de services. Deze test had de volgende eigenschappen:
+- **Number of users**: 10
+- **Ramp up**: 1
+- **Run time**: 60s
+- **Simulated load**: De service ervaart maar `1/10` van de load uit voorgaande tests.
+
+Het idee achter deze test is simpelweg dat een te grote load andere problemen kan veroorzaken die ervoor kunnen zorgen dat ook het schalen niet goed meer kan functioneren. Mogelijkdoor bijvoorbeeld het feit dat de service niet goed zijn metrics kan delen. Dit is echter maar een speculatie.
+
+#### Resultaten:
+Alhoewel achter deze test niet veel gedachten zaten, toch was dit wat het verschil maakte. Na enkele seconden was het volgende te zien op het Kubernetes dashboard:
+![service scales successfully](./scaled-service.png)
+
+**De deployment is succesvol horizontaal geschaald!** Het aantal pods is gestegen naar 7, en hier op gebleven tot de test voorbij was. Daarna zijn er voor ongeveer 2 minuten lang nog 7 pods geweest. Na de 2 minuten was het er nog maar 1. Precies zoals het hoort.
+
+Wel moet de grafiek voor het totale aantal connecties in Grafana worden geupdate met een custom metric. Deze werkt namelijk niet aangezien de connecties verdeeld worden over meerdere pods. 
+![grafana connecties bij schaling](./grafana-test-5.png)
+
+
+## Conclusie
+De `notification service` van het LockBox project is nu in staat om mee te schalen met de load die hij ontvangt. Dit wil zeggen dat wanneer dit cluster gedeployed is, deze service altijd enkel de resources gebruikt die hij nodig heeft. Dit is een super waardevolle eigenschap aangezien dit enorm veel kosten kan besparen, in het bijzonder bij het gebruik van Cloud services. 
+
+## Verbeterpunten
+Alhoewel de notification service nu succesvol kan schalen, is niet helemaal duidelijk waarom deze dat niet deed bij een hogere gesimuleerde load. Een goede idee voor een vervolg onderzoek zou zijn om dit te achterhalen. Dit kan bijvoorbeeld worden gedaan door betere logging te implementeren, of door meer metrics te monitoren. Dit zou bij toekomstige tests mogelijk meer informatie kunnen geven.
+
+Een ander belangrijk punt is het feit dat deze tests zijn uitgevoerd op een desktop computer met daarop "minikube" geïnstalleerd. Dit is verre van optimaal voor performance, sterker nog, Locust (de load testing software) gaf geregeld het volgende aan:
+```txt
+WARNING/root: CPU usage above 90%! This may constrain your throughput and may even give inconsistent response time measurements!
+```
+
+Kortom is het aan te raden om deze tests opnieuw, een geavanceerder uit te voeren. Het zou goed zijn om meer metrics te verzamelen, en een sterkere machine te gebruiken voor het uitvoeren van de load test.
