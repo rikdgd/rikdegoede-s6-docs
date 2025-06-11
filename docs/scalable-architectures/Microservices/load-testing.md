@@ -19,8 +19,8 @@ from locust import HttpUser, task
 class TestingUser(HttpUser):
 	@task
 	def test_notifications(self):
-	self.client.get("/")
 	self.client.get("/notification/user-notifications/test_user_id")
+	self.client.get("/testing/simulate-load/100000")
 	
 ```
 
@@ -57,7 +57,6 @@ Tot slot zijn de waardes in Locust nu aangepast naar het volgende:
 - **Run time**: 60s
 
 #### Resultaten:
-
 In Locust was het volgende resultaat te zien aan het einde van de load test:
 ![load test 2 results](./loadtest-res-2.png)
 
@@ -152,3 +151,72 @@ WARNING/root: CPU usage above 90%! This may constrain your throughput and may ev
 ```
 
 Kortom is het aan te raden om deze tests opnieuw, een geavanceerder uit te voeren. Het zou goed zijn om meer metrics te verzamelen, en een sterkere machine te gebruiken voor het uitvoeren van de load test.
+
+---
+## Advies 
+Deze uitgevoerde tests tonen aan dat de opgezette architectuur in Kubernetes succesvol kan schalen. Dit is een mooi gegeven, maar voldoet de architectuur ook aan de [non-functional requirements](http://localhost:3000/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) van de LockBox applicatie? Hiervoor is een extra test uitgevoerd waarvan hier beneden te lezen is hoe deze is opgezet.
+
+De conclusie van deze test is dat de service niet voldoet aan de non-functional requirements. Dit komt hoogst waarschijnlijk door het feit dat dit cluster draait in "Minikube". Het is daarom aan te raden om deze applicatie later te deployen op een cluster met meer resources. Ook is het een goed idee om de upload tijden goed te blijven monitoren om hier problemen snel te detecteren. 
+
+### Upload speed test
+De volgende performance gerelateerde non-functional requirements zijn van het LockBox project:
+
+- **(NF-6)** Het opslaan van een bestand duurt maximaal 1 minuut. Ook bij `900.000` gelijktijdige gebruikers.
+- **(NF-7)** Het verwijderen van een bestand duurt maximaal 1 minuut. Ook bij `900.000` gelijktijdige gebruikers.
+- **(NF-8)** Het verwijderen van een account duurt maximaal 5 minuten. Ook bij `900.000` gelijktijdige gebruikers. 
+- **(NF-15)** Gebruikers kunnen bestanden opslaan met een maximale grote van `1 GB`.
+
+
+De Kubernetes implementatie is pas echt succesvol wanneer de non-functional requirements behaald worden. Dit is echter lastig om goed te controleren met Locust, herinner de error onder het kopje "Verbeterpunten":
+```txt
+WARNING/root: CPU usage above 90%! This may constrain your throughput and may even give inconsistent response time measurements!
+```
+
+De response times zijn bij deze testen helemaal niet accuraat geweest, en dit zal daarom op een andere manier gemeten moeten worden. Hiervoor kan in de backend service zelf de execution time worden bijgehouden. 
+
+### Test
+De volgende configuratie is opgezet voor een Locust test van de "file upload" functionaliteit:
+```python
+class FileUploadUser(HttpUser):
+	@task
+	def upload_file(self):
+		data = {
+			"user_id": "test_user_id"
+		}
+		files = {
+			"file": ("textfile.txt", open("testfile.txt", "rb"), "text/plain")
+		}
+		with self.client.post("/api", files=files, catch_response=True) as response:
+			if response.status_code == 200:
+				response.success()
+			else:
+				response.failure(f"Failed with status {response.status_code}")
+```
+
+Het uitvoeren van deze test gaf het volgende resultaat in Locust, dit resultaat is **NIET** te vertrouwen. Volgens Locust zal in de huidige deployment niet voldoen aan de non-functional requirement voor de upload snelheid (NF-6).
+![locust-file-upload-test](./locust-upload-test.png)
+
+Het loggen van de verwerkingstijden in de service zelf gaf het volgende resultaat:
+```txt
+...
+
+INFO - File uploaded in 1109 millis
+INFO - Outcome: Success(200 OK)
+WARN - Remote left: client disconnect before response started.
+INFO - File uploaded in 1107 millis
+INFO - Outcome: Success(200 OK)
+WARN - Remote left: client disconnect before response started.
+INFO - File uploaded in 1106 millis
+INFO - Outcome: Success(200 OK)
+WARN - Remote left: client disconnect before response started.
+INFO - File uploaded in 1106 millis
+INFO - Outcome: Success(200 OK)
+WARN - Remote left: client disconnect before response started.
+INFO - File uploaded in 68316 millis
+INFO - Outcome: Success(200 OK)
+WARN - Remote left: client disconnect before response started.
+
+...
+```
+
+Zoals te zien aan de logs voldoet de huidige deployment daadwerkelijk niet aan de non-functional requirement voor uploadsnelheid. Meestal zit de service rond de 10% boven de benodigde upload tijd, maar in sommige gevallen duurt het zelfs meer dan een minuut. 

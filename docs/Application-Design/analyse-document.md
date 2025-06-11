@@ -45,8 +45,11 @@ De uitgewerkte non-functional requirements geven aan welke eisen zijn opgesteld 
 5. De applicatie heeft een up-time van `99.3%`. <br/>
    *Het is belangrijk dat gebruikers zo goed als altijd toegang hebben tot hun opgeslagen bestanden. Het zou niet juist zijn als gebruikers meer dan 10 minuten per dag niet bij hun bestanden kunnen. Dit resulteert in een up-time percentage van `99.3%`.*
 6. Het opslaan van een bestand duurt maximaal 1 minuut. 
+	1. Ook bij `900.000` gelijktijdige gebruikers.
 7. Het verwijderen van een bestand duurt maximaal 1 minuut.
+	1. Ook bij `900.000` gelijktijdige gebruikers.
 8. Het verwijderen van een account duurt maximaal 5 minuten.
+	1. Ook bij `900.000` gelijktijdige gebruikers.
 9. Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen. <br/>
    *De verwachting is dat LockBox mogelijk meerdere miljoenen gebruikers zal hebben. Deze zullen niet allemaal tegelijkertijd de applicatie gebruiken, dit zal uiterlijk liggen rond de 2 uur per dag in extreme gevallen. Stel de applicatie heeft 10.000.000 gebruikers die de applicatie allemaal 2 uur per dag gebruiken, dan resulteert dit in `10,000,000 * (2 / 24) = 833,333` gelijktijdige gebruikers. Dit is naar boven afgerond tot `900,000` om er zeker van te zijn dat het systeem het aantal gebruikers aan kan.*
 10. Het systeem bevat een `RBAC` systeem zodat iedere gebruiker de juiste rechten bezit. 

@@ -10,16 +10,12 @@ LockBox is een file storage webapplicatie vergelijkbaar met Google Drive. Hierbi
 Deze deelvraag zal worden gebruikt om te achterhalen wat de problemen zijn met de huidige implementatie, en of WebAssembly daadwerkelijk goed gebruikt kan worden in het LockBox project. Hiervoor zullen een aantal criteria van LockBox worden behandeld die belangrijk zijn voor de encryptie. Vervolgens kan achterhaald worden of WebAssembly hierbij daadwerkelijk beter is voor LockBox dan een standaard JavaScript implementatie. 
 
 ## Het probleem
-De huidige manier waarop AES-GCM encryptie is geïmplementeerd voor LockBox is het best te uit te leggen aan de hand van het [C2 container diagram](http://localhost:3000/rikdegoede-s6-docs/docs/Application-Design/Design-Document#c2---containerdiagram). Deze bevat namelijk een service genaamd de *"FileStorageService"*. Deze service is verantwoordelijk voor het opslaan van bestanden in een database zodat gebruikers deze later kunnen ophalen. Op het moment is dit niet het enige wat de service doet, deze service versleuteld namelijk ook de bestanden.
-
-Deze implementatie werkt prima, maar komt niet heel betrouwbaar over en brengt een aantal risico's met zich mee. 
+De huidige manier waarop AES-GCM encryptie is geïmplementeerd voor LockBox is het best te uit te leggen aan de hand van het [C2 container diagram](http://localhost:3000/rikdegoede-s6-docs/docs/Application-Design/Design-Document#c2---containerdiagram). Deze bevat namelijk een service genaamd de *"FileStorageService"*. Deze service is verantwoordelijk voor het opslaan van bestanden in een database zodat gebruikers deze later kunnen ophalen. Op het moment is dit niet het enige wat de service doet, deze service versleuteld namelijk ook de bestanden. Deze implementatie werkt prima, maar komt niet heel betrouwbaar over voor de gebruiker. 
 
 ### Betrouwbaarheid
-Het grootste probleem van deze implementatie is dat dit geen **end-to-end** encryption is. Momenteel worden bestanden pas versleuteld in de backend. Dit betekend dat zowel het niet versleutelde bestand, als het wachtwoord om deze mee te versleutelen naar de backend gestuurd moeten worden. Het maakt hierbij niet uit of deze implementatie veilig is, want voor de gebruiker is dit sowieso al niet te vertrouwen. *Wie weet wat LockBox met het verkregen wachtwoord doet.* Aangezien deze in de backend ontvangen wordt zou dit kunnen betekenen dat de ontwikelaars van LockBox toegang hebben tot alle gebruikers encryptie wachtwoorden. Niet heel betrouwbaar.
+Het grootste probleem van deze implementatie is dat dit geen **end-to-end** encryption is. Momenteel worden bestanden pas versleuteld in de backend. Dit betekend dat zowel het niet versleutelde bestand, als het wachtwoord om deze mee te versleutelen naar de backend gestuurd moeten worden. Het maakt hierbij niet uit of deze implementatie veilig is, want voor de gebruiker is dit sowieso al niet te vertrouwen. *Wie weet wat LockBox met het verkregen wachtwoord doet.* Aangezien deze in de backend ontvangen wordt zou dit kunnen betekenen dat de ontwikkelaars van LockBox toegang hebben tot alle gebruikers encryptie wachtwoorden. Niet heel betrouwbaar.
 
-### Extra risico
-- Niet versleutelde data over netwerk
-- meestal geen probleem door HTTPS, maar toch extra risico.
+Om de encryptie binnen de LockBox applicatie betrouwbaar te maken moeten de bestanden in de frontend worden versleuteld. Zo zijn ze al versleuteld voor ze door de rest van de applicatie verwerkt worden. 
 
 ---
 ## Criteria
