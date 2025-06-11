@@ -30,6 +30,7 @@ Deze simpele test maakt HTTP requests naar de `/notifications` en `/user-notific
 
 Deze test zal gedurende de eerste 10 seconden steeds meer test gebruikers aanmaken, van 10 per seconde, tot 100 per seconde. De laatste 10 seconde van de test blijft het aantal test gebruikers op 100 staan. Deze gebruikers sturen allemaal requests naar de aangegeven endpoints. 
 
+---
 ## Uitgevoerde tests
 ### Test 1
 Om te controleren of het opgezette Kubernetes cluster in staat is om te schalen is een Locust test gebruikt met de volgende configuratie:
@@ -138,7 +139,7 @@ Alhoewel achter deze test niet veel gedachten zaten, toch was dit wat het versch
 Wel moet de grafiek voor het totale aantal connecties in Grafana worden geupdate met een custom metric. Deze werkt namelijk niet aangezien de connecties verdeeld worden over meerdere pods. 
 ![grafana connecties bij schaling](./grafana-test-5.png)
 
-
+---
 ## Conclusie
 De `notification service` van het LockBox project is nu in staat om mee te schalen met de load die hij ontvangt. Dit wil zeggen dat wanneer dit cluster gedeployed is, deze service altijd enkel de resources gebruikt die hij nodig heeft. Dit is een super waardevolle eigenschap aangezien dit enorm veel kosten kan besparen, in het bijzonder bij het gebruik van Cloud services. 
 
@@ -154,9 +155,11 @@ Kortom is het aan te raden om deze tests opnieuw, een geavanceerder uit te voere
 
 ---
 ## Advies 
-Deze uitgevoerde tests tonen aan dat de opgezette architectuur in Kubernetes succesvol kan schalen. Dit is een mooi gegeven, maar voldoet de architectuur ook aan de [non-functional requirements](http://localhost:3000/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) van de LockBox applicatie? Hiervoor is een extra test uitgevoerd waarvan hier beneden te lezen is hoe deze is opgezet.
+Deze uitgevoerde tests tonen aan dat de opgezette architectuur in Kubernetes succesvol kan schalen. Dit is een mooi gegeven, maar voldoet de architectuur ook aan de [non-functional requirements](http://localhost:3000/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) van de LockBox applicatie? Hiervoor is een extra test uitgevoerd waarvan hier beneden bij *"Upload speed test"* te lezen is hoe deze is opgezet.
 
-De conclusie van deze test is dat de service niet voldoet aan de non-functional requirements. Dit komt hoogst waarschijnlijk door het feit dat dit cluster draait in "Minikube". Het is daarom aan te raden om deze applicatie later te deployen op een cluster met meer resources. Ook is het een goed idee om de upload tijden goed te blijven monitoren om hier problemen snel te detecteren. 
+De conclusie van deze test is dat de service niet voldoet aan de non-functional requirements. Dit komt hoogst waarschijnlijk door het feit dat dit cluster draait in [Minikube](https://minikube.sigs.k8s.io/docs/). Het is daarom aan te raden om deze applicatie later te deployen op een cluster met meer resources. Ook is het een goed idee om de upload tijden goed te blijven monitoren om hier problemen snel te detecteren. 
+
+Tot slot moet worden opgemerkt dat deze non-functional requirement moeilijk te garanderen is aangezien er veel factoren spelen zoals: *internet snelheid, grote van het bestand, locatie van de uploader,* enzovoort. Om file uploads zo snel mogelijk te houden zal het noodzakelijk zijn om op zo veel mogelijk locaties de backend te draaien. Zo kan op zijn minst ervoor gezorgd worden dat de kwaliteit/snelheid van de verbinding niet de hinderende factor is voor de uploadsnelheid. De andere genoemde factoren zijn namelijk moeilijk te verhelpen. 
 
 ### Upload speed test
 De volgende performance gerelateerde non-functional requirements zijn van het LockBox project:
@@ -172,9 +175,8 @@ De Kubernetes implementatie is pas echt succesvol wanneer de non-functional requ
 WARNING/root: CPU usage above 90%! This may constrain your throughput and may even give inconsistent response time measurements!
 ```
 
-De response times zijn bij deze testen helemaal niet accuraat geweest, en dit zal daarom op een andere manier gemeten moeten worden. Hiervoor kan in de backend service zelf de execution time worden bijgehouden. 
+De response tijden zijn bij deze testen helemaal niet accuraat geweest, en dit zal daarom op een andere manier gemeten moeten worden. Hiervoor kan in de backend service zelf de execution time worden bijgehouden. 
 
-### Test
 De volgende configuratie is opgezet voor een Locust test van de "file upload" functionaliteit:
 ```python
 class FileUploadUser(HttpUser):
@@ -194,6 +196,7 @@ class FileUploadUser(HttpUser):
 ```
 
 Het uitvoeren van deze test gaf het volgende resultaat in Locust, dit resultaat is **NIET** te vertrouwen. Volgens Locust zal in de huidige deployment niet voldoen aan de non-functional requirement voor de upload snelheid (NF-6).
+
 ![locust-file-upload-test](./locust-upload-test.png)
 
 Het loggen van de verwerkingstijden in de service zelf gaf het volgende resultaat:
