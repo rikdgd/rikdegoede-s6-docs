@@ -16,6 +16,9 @@ Om altijd een werkende versie te hebben van de applicatie wordt de `main` branch
 
 De `development` branch heeft een belangrijk doel, het is namelijk de plek waar gemaakt features worden samengevoegd. Het samenvoegen van features is namelijk een actie die vaak in fouten resulteert, en dit zou niet handig zijn wanneer dit gebeurd op de `main` branch. 
 
+### Feature merging
+Om later de verschillende ontwikkelde features weer samen te voegen zullen GitHub merge requests gebruikt worden. Aan deze merge request moet altijd een extra reviewer worden gekoppeld zodat de kans groter is dat fouten worden tegengehouden. Ook is het belangrijk dat degene die de merge request aanmaakt, deze niet zelf mag goedkeuren. Verder moeten alle workflows succesvol worden afgerond voordat een merge request goedgekeurd mag worden. 
+
 ---
 ## Risk management
 ### Risico's
@@ -119,6 +122,42 @@ Om te zorgen dat secret niet in de code terechtkomen maakt LockBox gebruik van *
 ---
 
 ## Release management
-- Tagged releases
-- Deployment environments (staging vs production)
-- Rollback strategies (if any)
+Het uitrollen van een applicatie is vaak en grote opgave, en voor iedere applicatie ziet het proces er anders uit. Een nieuwe release uitrollen is vaak een spannend moment aangezien fouten in de applicatie voor problemen kunnen zorgen. Om dit proces zo gecontroleerd mogelijk te laten  verlopen is hier een *release management* uitgewerkt. Hier staat uitgelegd hoe nieuwe releases van de LockBox software worden uitgerold. 
+
+### Build management
+Voor de nieuwe versie van de LockBox software uitgerold kan worden, zal deze eerst gebouwd moeten worden. Om dit proces te automatiseren wordt voor LockBox gebruik gemaakt van GitHub actions workflows. Deze workflows voeren per repository op zijn minst de volgende stappen uit:
+1. Compileren van de software.
+2. Bouwen van een docker image.
+3. Pushen van docker image een image repository. 
+
+*In realiteit voeren de workflows meer stappen uit. De stappen die hierboven staan zijn enkel de stappen die worden gebruikt voor het uitrollen van een nieuwe release.*
+
+De LockBox applicatie wordt uitgerold in een Kubernetes cluster, daarom wordt een docker image gebruikt voor het draaien van de verschillende services. Zo zijn alle dependencies, de software, en het operating system samengevoegd waardoor beter te garanderen is dat de software zal werken. *Een docker image is überhaupt nodig om een deployment in Kubernetes aan te kunnen maken.*
+
+### Deployment omgevingen
+Zoals uitgelegd wordt de software van het LockBox project automatisch als docker images uitgerold. Deze images kunnen automatisch opgehaald worden door het Kubernetes cluster om zo de software up-to-date te houden. Dit is echter een versimpelde uitleg van hoe dit proces er uit moet gaat zien voor LockBox.
+
+LockBox zal voor deployment later twee verschillende omgevingen gebruiken: *development* en *release*. Deze hebben beide hun eigen rol binnen het release proces:
+
+#### Development
+De Development omgeving is een omgeving met relatief weinig resources tot zijn beschikking. Deze omgeving wordt namelijk gebruikt voor het testen/controleren van de software. Voor deze omgeving worden losse databases en brokers gebruikt om te garanderen dat de gebruikers data veilig blijft. Deze omgeving geeft de ontwikkelaars de kans om de software goed te bekijken, maar ook om hier automated testing op uit te voeren met behulp van DAST.
+
+#### Release
+In de release omgeving wordt de LockBox applicatie gedraait voor de eindgebruikers. Deze deployment heeft toegang tot een stuk meer resources om te zorgen dat de applicatie een grote load aankan wanneer nodig. Ook heeft deze deployment toegang tot de productie databases en message broker. 
+
+### Roll-back strategie
+Hoe goed het release proces ook is ingedeeld, er is altijd een kans dat fouten gemaakt worden. Mocht er een probleem zijn met een nieuwe release van de software, dan is het belangrijk om te zorgen dat dit probleem zo snel mogelijk verholpen wordt. Hiervoor is een roll-back strategie onmisbaar om te zorgen dat er duidelijk stappen gevolgd kunnen worden om de software terug te zetten naar een vorige versie. 
+
+Aangezien de LockBox applicatie in een Kubernetes cluster wordt uitgerold is het terugzetten van een vorige versie vrij simpel. Kubernetes deployments hebben namelijk van zichzelf support voor rollbacks naar vorige versies. Deze versies worden automatisch bijgehouden door Kubernetes. 
+
+De roll-backs kunnen echter wel deels worden geautomatiseerd. In Kubernetes kunnen namelijk automatisch *"health checks"* worden uitgevoerd om te controleren dat een deployment correct functioneert. Voor LockBox zal dit later ook worden gedaan, alleen dit is enkel bruikbaar voor simpele health checks zoals memory gebruik en zal dus niet alle problemen tegenhouden.
+
+#### Blue-Green strategie
+Om het uitrollen van nieuwe versies nog veiliger te maken zal ook gebruik gemaakt worden van de *"Blue-Green"* deployment strategie. Dit wil zeggen dat bij iedere nieuwe versie de volgende stappen worden uitgevoerd:
+
+1. Nieuwe versie van de software (Green) wordt gedeployed naast de vorige versie (Blue). Zowel de oude als nieuwe versie kunnen nu worden gebruikt.
+2. Er worden health checks uitgevoerd op de Green deployment.
+	1. Bij een succesvolle health check zal de nieuwe deployment (Green) worden gebruikt.
+	2. Bij een falende health check zal de oude deployment (Blue) gebruikt blijven worden. 
+
+Door de voorgaande versie van de software altijd online te houden tot de nieuwe versie succesvol blijkt te werken, is het super makkelijk om terug te stappen naar de vorige versie. Enkel de routing hoeft namelijk te worden aangepast. 
