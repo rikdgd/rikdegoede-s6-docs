@@ -12,7 +12,7 @@ MongoDB Atlas is een volledig beheerde cloud-database service voor MongoDB, een 
 ### Waarom in LockBox?
 De keuze is gemaakt om NoSQL te gebruiken voor de *"notification service"* van het LockBox project. Dit omdat zolang de applicatie blijft groeien, nieuwe soorten notificaties zullen ontstaan. Dit vereist een flexibele database, en NoSQL is hiervoor ideaal.
 
-Verder is de volgende non-functional requirement gesteld voor LockBox: *"Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen."*.
+Verder is de volgende non-functional requirement gesteld voor LockBox: *"Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen"*.
 Dit is een groot aantal gebruikers, en hiervoor zal waarschijnlijk horizontale schaling nodig zijn. Dit is echter tijd rovend om zelf op te zetten, aangezien het erg lastig is om meerdere database instanties "in sync" te houden met elkaar. Dit maakt een cloud service die dit voor ons doet zoals MongoDB ideaal. 
 
 Verder is de keuze om MongoDB te gebruiken gemaakt omdat dit de meest gebruikte NoSQL cloud-database is, en omdat hier al ervaring mee is bij de ontwikkelaar van LockBox.
@@ -41,4 +41,19 @@ De enige optie die daarom overblijft is om een *"Enterprise Advanced"* contract 
 ## CloudAMQP
 LockBox maakt gebruik van een RabbitMQ message broker. Deze broker is in de cloud gedeployed om onderhoudskosten en tijd te besparen. De broker wordt gehost op [CloudAMQP](https://www.cloudamqp.com/), een cloud service van de makers van RabbitMQ. 
 
-bla bla bla
+### Waarom in LockBox?
+De LockBox applicatie moet horizontaal kunnen schalen vanwege de volgende non-functional requirement: *"Het systeem moet horizontaal schalen om meer/minder resources te gebruiken wanneer nodig"*. Het horizontaal schalen van een message broker is jammer genoeg geen makkelijke taak. 
+
+- *Welke message broker moet een service zijn berichten uit ophalen?*
+- *Welke broker moet een service zijn berichten naar posten?*
+
+Deze problemen zijn erg complex om op te lossen. Dit wil niet zeggen dat het onmogelijk is, maar in veel gevallen is het voordeliger om een cloud service te gebruiken die horizontale schalen al heeft geïmplementeerd. Daarom is de keuze gemaakt om een cloud broker te gebruiken voor het LockBox project. 
+
+De keuze om specifiek voor een RabbitMQ broker gehost bij CloudAMQP te gaan, is omdat met RabbitMQ al ervaring is bij de ontwikkelaars. CloudAMQP is gekozen aangezien dit een dienst van hetzelfde bedrijf dat RabbitMQ heeft ontwikkeld. Zij zullen daarom goed weten hoe de broker geconfigureerd moet worden. 
+
+### Kosten berekening
+Momenteel is de LockBox applicatie nog in ontwikkeling, en daarom wordt een gratis *"Little Lemur"* broker gebruikt. Het spreekt voor zich dat deze broker niet genoeg capaciteit zal hebben wanneer LockBox in productie gaat. Om alvast een idee te krijgen van de kosten van deze service in de toekomst, is hier een kostenberekening terug te vinden. Hierbij wordt er vanuit gegaan dat de LockBox applicatie precies aan zijn [non-functional requirements](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) zal voldoen. 
+
+CloudAMQP komst met een aantal standaard subscription tiers, dit zijn er te veel om hier uit te werken, maar ze zijn [hier](https://www.cloudamqp.com/plans.html#rmq) terug te vinden. 
+
+*Kosten berekening bla bla bla*
