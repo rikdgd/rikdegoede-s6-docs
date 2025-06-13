@@ -7,7 +7,12 @@ De LockBox applicatie zal gebruik maken van een message broker voor de communica
 1. Services zijn onafhankelijk van elkaar, ze hoeven namelijk onder anderen niet te weten waar een andere service zich bevind op het netwerk, of op welke poort deze luistert. De services hoeven kort gezegd niets meer van elkaar te weten.d
 2. Grote taken kunnen asynchroon worden uitgevoerd. Een bericht om een langdurige taak te starten kan simpelweg in een message queue worden gegooid, en de benodigde service zal deze oppakken wanneer er tijd voor is, zelfs als dit pas over 3 dagen is.
 
-Voor een microservice-architectuur is het dus gewenst om een message broker te gebruiken voor een groot deel van de communicatie tussen de verschillende services. LockBox maakt daarom ook gebruik van messaging. 
+Voor een microservice-architectuur is het gewenst om een message broker te gebruiken voor een groot deel van de communicatie tussen de verschillende services. LockBox maakt ook gebruik van messaging aangezien het de non-functional requirement heeft om horizontaal te schalen ([NF-02](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#must-have)). Om horizontaal te schalen moeten de services losgekoppeld van elkaar zijn, en hier helpt messaging enorm bij. 
+
+## Event-driven architecture
+Zoals hierboven al is uitgelegd is het voor LockBox belangrijk dat alle losse service compleet losgekoppeld van elkaar zijn. Hiervoor kan messaging een goede tool zijn wanneer dit juist wordt toegepast. Wat bijvoorbeeld geen goed idee zou zijn, is om messages op te stellen voor een specifieke service. 
+
+Om ervoor te zorgen dat de services volledig losgekoppeld blijven is voor LockBox de keuze gemaakt om een event-driven architecture te gebruiken. Wat dit wil zeggen is dat de verschillende services hun messages zullen formatteren als een gebeurtenis. Ze zullen dus enkel aangeven wat er bij ze is gebeurd, en niet welke service hier iets mee moet doen. Dit zullen de verschillende services zelf moeten bepalen.
 
 ---
 
