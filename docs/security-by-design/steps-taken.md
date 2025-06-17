@@ -44,7 +44,23 @@ Bij het designen van de architectuur zijn een aantal keuzes gemaakt met security
 - *Gebruik van bekende, up-to-date, frameworks*
 
 ## 4. Developing Product
+- Unit testing
+- Snyk SAST
+- ZAPP DAST (bijna dan)
+- SonarCloud
+- Agile
+- `.env` files
+- change, risk, security, release -management (DevSecOps)
+- dependabot
 
 ## 5. Product Testing and Integration
+- Automated testing
+	- unit tests
+	- Snyk SAST (ook hier, in beide fases wordt dit gebruikt)
+- GitHub Actions pipelines
+	- Gebruik van secrets in pipelines
 
 ## 6. Deployment and Maintenance of Products
+- Deployement to dockerhub (voor scalable NF)
+	- gebruik secrets
+- 
