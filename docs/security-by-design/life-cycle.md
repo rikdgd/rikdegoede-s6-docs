@@ -77,17 +77,17 @@ In Sprint 6 is echter weer de keuze gemaakt om deze service te vervangen door ee
 ## 4. Developing Product
 Tijdens het ontwikkelen van het product zijn ook een aantal maatregelen genomen om security gerelateerde problemen te vermijden. Ook hierbij is uiteraard rekening gehouden met de veiligheid van de bestanden van de gebruiker. 
 
-Ten eerste is voor development een docker compose omgeving opgezet met hierin een testing database voor bestanden. Zo kan de applicatie makkelijk worden getest zonder de daadwerkelijke gebruikers gegevens op het spel te zetten. 
+Ten eerste is voor development een docker compose omgeving opgezet met hierin een testing database voor bestanden. Zo kunnen de file upload en download functionaliteiten  makkelijk worden getest zonder de daadwerkelijke gebruikers gegevens op het spel te zetten. 
 
 Verder zijn voor de verschillende secrets, zoals bijvoorbeeld de connection string van de file database, steeds environment variables gebruikt in combinatie met lokale `.env` bestanden. Zo is voorkomen dat gevoelige data wordt gelekt, zonder dat dit veel moeite kost tijdens development.
 
-Het LockBox project maakt ook gebruik van verschillende CI/CD pipelines. Hieraan is Snyk toegevoegd om automatisch SAST toe te passen op de LockBox applicatie. Voor het uploaden en downloaden van bestanden is het vooral belangrijk dat de applicatie goede input validation heeft. Zo niet dan zouden gebruikers namelijk bestanden kunnen uploaden die bijvoorbeeld te groot zijn, dit zou namelijk voor financiële problemen kunnen zorgen.  Om dit te voorkomen is daarom het testen van de frontend vooral van belang. Het testenvan de file storage service is ook geprobeerd, maar deze is in `Rust` geschreven en hiervoor hebben de populairste SAST tools (waaronder Snyk) nog geen support. 
-
-*Klaar zo? Of nog iets toevoegen?* <br/>
-*Iets uit change, risk, security, release -management misschien?*
-
+Het LockBox project maakt ook gebruik van verschillende CI/CD pipelines. Hieraan is Snyk toegevoegd om automatisch SAST toe te passen op de LockBox applicatie. Voor het uploaden en downloaden van bestanden is het vooral belangrijk dat de applicatie goede input validation heeft. Zo niet dan zouden gebruikers namelijk bestanden kunnen uploaden die bijvoorbeeld te groot zijn, dit zou namelijk voor financiële problemen kunnen zorgen.  Om dit te voorkomen is daarom het testen van de frontend vooral van belang. Het testen van de file storage service is ook geprobeerd, maar deze is in `Rust` geschreven en hiervoor hebben de populairste SAST tools (waaronder Snyk) nog geen support. 
 
 ## 5. Product Testing and Integration
+Om te testen dat file uploads goed werken is load testing uitgevoerd met een stijgend aantal test gebruikers. Deze test is opgezet met `Locust` en daardoor makkelijk te herhalen of aan een DevSecOps pipeline toe te voegen om dit te automatiseren. 
+
+Zoals al vermeld bij **"4. Developing Product"** wordt Snyk SAST gebruikt om te controleren of de frontend applicatie vulnerabilities bevat. Voor de file uploads (US-01) is het vooral belangrijk dat de frontend geen vulnerabilities bevat rondom "insecure input sanitization". 
+
 - Automated testing
 	- unit tests
 	- Snyk SAST (ook hier, in beide fases wordt dit gebruikt)
