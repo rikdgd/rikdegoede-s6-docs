@@ -93,9 +93,10 @@ total files/month = 1.800.000 * 24 * 30 = 1.296.000.000
 
 requests to pay = monthly requests - 5M = 1.291.000.000
 ```
-Met een extra ~1.3 biljoen requests om te betalen buiten de standaard subscription komen we uit op een prijs van: $0.5 * 1.3B = $648.000.000
+Met een extra ~1.3 biljoen requests om te betalen buiten de standaard subscription komen we uit op een prijs van: $2.0 * 1.3B = $2.600.000.000
 
-Het is dus duidelijk niet de bedoeling om zo veel gebruikers te hebben op een Pro account. Deze kosten zijn natuurlijk te hoog om te betalen, en dan hebben we nog niet eens met de bandbreedte rekening gehouden. Normaal gesproken is in dit geval een enterprise account wenselijk om samen met Deno team een prijs af te stellen. 
+### Conclusie prijsberekening
+Het is duidelijk niet de bedoeling om zo veel gebruikers te hebben op een Pro account. Deze kosten zijn natuurlijk te hoog om te betalen, en dan hebben we nog niet eens met de bandbreedte rekening gehouden. Normaal gesproken is in dit geval een enterprise account wenselijk om samen met Deno team een prijs af te stellen. Het is daarom aan te raden om in de toekomst op zoek te gaan naar een ander cloud platform dat beter is ingericht op enterprise grade applicaties.
 
 ## Conclusie
 Voor het LockBox project is het een prima plan om het scannen van files op malware als serverless function uit te werken. Dit maakt het veel makkelijker om deze functionaliteit te uit te rollen wat veel kosten kan besparen in onderhoud. 

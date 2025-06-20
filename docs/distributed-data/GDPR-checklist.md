@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 # GDPR - Checklist
 De **GDPR** (General Data Protection Regulation), of in het Nederlands de **AVG** (Algemene Verordening Gegevensbescherming), is een Europese privacywetgeving die op **25 mei 2018** in werking is getreden. Deze wet regelt hoe organisaties binnen de EU (en daarbuiten als ze EU-burgers bedienen) moeten omgaan met persoonsgegevens.

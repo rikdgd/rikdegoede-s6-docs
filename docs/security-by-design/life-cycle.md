@@ -86,7 +86,9 @@ Het LockBox project maakt ook gebruik van verschillende CI/CD pipelines. Hieraan
 ## 5. Product Testing and Integration
 Om te testen dat file uploads goed werken is load testing uitgevoerd met een stijgend aantal test gebruikers. Deze test is opgezet met `Locust` en daardoor makkelijk te herhalen of aan een DevSecOps pipeline toe te voegen om dit te automatiseren. 
 
-Zoals al vermeld bij **"4. Developing Product"** wordt Snyk SAST gebruikt om te controleren of de frontend applicatie vulnerabilities bevat. Voor de file uploads (US-01) is het vooral belangrijk dat de frontend geen vulnerabilities bevat rondom "insecure input sanitization". 
+Zoals al vermeld bij **"4. Developing Product"** wordt Snyk SAST gebruikt om te controleren of de frontend applicatie vulnerabilities bevat. Voor de file uploads (US-01) is het vooral belangrijk dat de frontend geen vulnerabilities bevat rondom "insecure input sanitization". Een onveilige sanitization zou ertoe kunnen leiden dat gebruikers bestanden kunnen uploaden die zij niet zouden moeten mogen uploaden. 
+
+
 
 - Automated testing
 	- unit tests
@@ -95,6 +97,16 @@ Zoals al vermeld bij **"4. Developing Product"** wordt Snyk SAST gebruikt om te 
 	- Gebruik van secrets in pipelines
 
 ## 6. Deployment and Maintenance of Products
+De LockBox applicatie draait in een Kubernetes cluster door gebruik te maken van **Docker** images. De applicatie wordt daarom als docker images gedeployed naar Docker Hub, Kubernetes kan deze automatisch ophalen. 
+
+De services in het LockBox cluster worden gemonitord met behulp van **Prometheus** en **Grafana**. Zo is er altijd een dashboard aanwezig met de huidige status van de applicatie. Momenteel wordt het cluster en .NET gemonitored, in de toekomst is het hoogstens aan te raden om ook de file downloads/uploads te monitoren. Hiervoor zal een custom metric nodig zijn. 
+
+Ook is logging is geïmplementeerd voor het LockBox project. Zo worden bijvoorbeeld ook de file uploads ge- logged. Hierbij wordt bijgehouden hoe lang het uploaden van het bestand duurde vanwege non-functional requirement: *"bla"*
+```rust
+info!("File uploaded in {} millis by user: {}", now.elapsed().unwrap().as_millis(), message.user_id);
+```
+
+
 - Deployement to dockerhub (voor scalable NF)
 	- gebruik secrets
 - logging

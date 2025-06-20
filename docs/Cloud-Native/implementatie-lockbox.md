@@ -54,6 +54,14 @@ De keuze om specifiek voor een RabbitMQ broker gehost bij CloudAMQP te gaan, is 
 ### Kosten berekening
 Momenteel is de LockBox applicatie nog in ontwikkeling, en daarom wordt een gratis *"Little Lemur"* broker gebruikt. Het spreekt voor zich dat deze broker niet genoeg capaciteit zal hebben wanneer LockBox in productie gaat. Om alvast een idee te krijgen van de kosten van deze service in de toekomst, is hier een kostenberekening terug te vinden. Hierbij wordt er vanuit gegaan dat de LockBox applicatie precies aan zijn [non-functional requirements](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) zal voldoen. 
 
-CloudAMQP komst met een aantal standaard subscription tiers, dit zijn er te veel om hier uit te werken, maar ze zijn [hier](https://www.cloudamqp.com/plans.html#rmq) terug te vinden. 
+CloudAMQP komst met een aantal standaard subscription tiers, dit zijn er te veel om hier uit te werken, maar ze zijn [hier](https://www.cloudamqp.com/plans.html#rmq) terug te vinden. De verschillende tiers hebben allemaal de volgende twee eigenschappen:
+- Maximaal aantal **messages** per seconde
+- Maximaal aantal gelijktijdige **connecties**.
+Om het maximale aantal connecties te verhogen kunnen ook meerdere nodes aangeschaft worden. Hiervoor geldt de prijs: `tier_prijs * aantal_nodes`.
 
-*Kosten berekening bla bla bla*
+Voor LockBox is de volgende non-functional requirement opgezet: *"Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen"*. Als deze allemaal iedere 10 seconden een actie uitvoeren waarvoor een message verstuurd moet worden, dan houdt dit in dat er **90.000** message per seconde verstuurd gaan worden. Ook betekend dit dat het aantal gelijktijdige connecties simpelweg **900.000** zal bedragen. 
+
+Om aan het aantal messages per seconde te voldoen is een *"Heavy Hippo"* subscription genoeg. Het jammere is echter dat geen enkele tier voldoet aan het aantal connecties dat LockBox nodig zal hebben. Ook het gebruik van het maximale aantal nodes is hierbij niet goed genoeg.
+
+#### Conclusie: 
+Voor LockBox zal minimaal een *"Heavy Hippo"* subscription nodig zijn met een kosten van **$9.995** per maand. Om aan het aantal connecties te voldoen zal de prijs hoger worden maar dit is moeilijk te bepalen hoeveel aangezien de standaard tiers hier niet aan voldoen. Mogelijk is het daarom een goed idee om in de toekomst een andere service te zoeken.
