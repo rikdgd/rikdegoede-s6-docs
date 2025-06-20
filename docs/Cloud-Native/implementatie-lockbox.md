@@ -10,7 +10,7 @@ Tot slot zal ook nog een kostenberekening worden gemaakt per cloud service. Deze
 MongoDB Atlas is een volledig beheerde cloud-database service voor MongoDB, een populaire NoSQL-database. Het stelt ontwikkelaars in staat om snel en eenvoudig schaalbare, flexibele databases te hosten in de cloud, zonder zich zorgen te hoeven maken over onderhoud, updates of beveiliging. Atlas draait op cloudplatforms zoals AWS, Google Cloud en Microsoft Azure, en biedt functies zoals automatische backups, realtime monitoring en ingebouwde beveiliging. Het is ideaal voor moderne applicaties die hoge prestaties en flexibiliteit nodig hebben.
 
 ### Waarom in LockBox?
-De keuze is gemaakt om NoSQL te gebruiken voor de *"notification service"* van het LockBox project. Dit omdat zolang de applicatie blijft groeien, nieuwe soorten notificaties zullen ontstaan. Dit vereist een flexibele database, en NoSQL is hiervoor ideaal.
+De keuze is gemaakt om NoSQL te gebruiken voor de *"notification service"* van het LockBox project. Dit omdat zolang de applicatie blijft groeien, nieuwe soorten notificaties zullen ontstaan. Dit vereist een flexibele database, en NoSQL is hiervoor ideaal.<br/>(Uitgebreide uitleg: [*Database Keuze*](https://rikdgd.github.io/rikdegoede-s6-docs/docs/distributed-data/database-keuze))
 
 Verder is de volgende non-functional requirement gesteld voor LockBox: *"Het systeem moet minimaal `900,000` gebruikers tegelijkertijd aankunnen"*.
 Dit is een groot aantal gebruikers, en hiervoor zal waarschijnlijk horizontale schaling nodig zijn. Dit is echter tijd rovend om zelf op te zetten, aangezien het erg lastig is om meerdere database instanties "in sync" te houden met elkaar. Dit maakt een cloud service die dit voor ons doet zoals MongoDB ideaal. 
