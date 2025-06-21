@@ -19,7 +19,7 @@ Op de website van WebAssembly is de volgende definitie terug te lezen: <br/>
 
 Dit is een hele boel informatie in één zin, maar kort samengevat is WebAssembly een binair formaat dat uitgevoerd kan worden door de browser. WebAssembly is dus geen eigen taal, en er kunnen verschillende talen gebruikt worden voor het ontwikkelen van WebAssembly. Het voordeel hiervan is dat er geen losse interpreter meer nodig is om de code uit te kunnen voeren. Dit maakt WebAssembly een stuk efficiënter en sneller om uit te voeren dan JavaScript code. 
 
-WebAssembly maakt net als JavaScript code gebruik van 
+WebAssembly is niet gelimiteerd aan de browser, het kan ook draaien in de backend door bijvoorbeeld Node.js te gebruiken [[3]](https://nodejs.org/en/learn/getting-started/nodejs-with-webassembly). Dit maakt het mogelijk om de gecompileerde WebAssembly te hergebruiken in zowel de frontend als backend. 
 
 ## Het gebruiken van WebAssembly
 Om WebAssembly the kunnen gebruiken in een webapplicatie moet deze worden aangeroepen via JavaScript. Bij het compileren van WebAssembly wordt bij de meeste talen automatisch een JavaScript module aangemaakt met bindings naar de gecompileerde WebAssembly. Dit kan de ontwikkelaar overigens ook zelf handmatig implementeren zonder al te veel moeite. Hoe dan ook zijn deze bindings nodig om de WebAssembly logica aan te roepen. 
@@ -40,6 +40,12 @@ In de officiele documentatie staan een aantal voorbeelden gegeven waarvoor WebAs
 
 Zoals te zien staat hier ook **encryption** tussen, laat dit nu precies zijn waar dit onderzoek voor wordt uitgevoerd. De hoofdvraag van dit onderzoek luidt namelijk: ***"Hoe kan WebAssembly ingezet worden bij het versleutelen van bestanden in de frontend van de LockBox applicatie?"***
 
+## Samenvatting
+WebAssembly is een vorm van bytecode die door de browser en interpreters kan worden uitgevoerd. Het is een stuk efficiënter dan JavaScript voor het uitvoeren van berekeningen, wat applicaties een betere performance kan bieden. Ook kunnen ontwikkelaars verschillende talen gebruiken om naar WebAssembly te compileren. Dit maakt dat de ontwikkelaars een taal kunnen gebruiken waar ze bekend mee zijn. Hierdoor is WebAssembly een stuk makkelijker te integreren.
+
+Kortom lijkt WebAssembly ideaal voor versleuteling in de frontend van de LockBox applicatie.
+
 ## Bronnen:
 1. https://webassembly.org/
 2. https://webassembly.github.io/spec/js-api/index.html
+3. https://nodejs.org/en/learn/getting-started/nodejs-with-webassembly

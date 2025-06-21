@@ -3,7 +3,7 @@ sidebar_position: 3
 ---
 # 2. Eisen encryptie in frontend.
 
-Deelvraag 2 van dit onderzoek luidt: *"Welke functionele en niet-functionele eisen zijn belangrijk voor veilige en efficiënte encryptie in de frontend?"*
+Deelvraag 2 van dit onderzoek luidt: **"Welke functionele en niet-functionele eisen zijn belangrijk voor veilige en efficiënte encryptie in de frontend?"**
 
 LockBox is een file storage webapplicatie vergelijkbaar met Google Drive. Hierbij is het belangrijk om bestanden te versleutelen om te voorkomen dat onbevoegden toegang kunnen krijgen tot gevoelige data. Deze versleuteling is al geïmplementeerd voor LockBox, alleen heeft deze implementatie nog een aantal problemen.
 
@@ -15,7 +15,10 @@ De huidige manier waarop AES-GCM encryptie is geïmplementeerd voor LockBox is h
 ### Betrouwbaarheid
 Het grootste probleem van deze implementatie is dat dit geen **end-to-end** encryption is. Momenteel worden bestanden pas versleuteld in de backend. Dit betekend dat zowel het niet versleutelde bestand, als het wachtwoord om deze mee te versleutelen naar de backend gestuurd moeten worden. Het maakt hierbij niet uit of deze implementatie veilig is, want voor de gebruiker is dit sowieso al niet te vertrouwen. *Wie weet wat LockBox met het verkregen wachtwoord doet.* Aangezien deze in de backend ontvangen wordt zou dit kunnen betekenen dat de ontwikkelaars van LockBox toegang hebben tot alle gebruikers encryptie wachtwoorden. Niet heel betrouwbaar.
 
-Om de encryptie binnen de LockBox applicatie betrouwbaar te maken moeten de bestanden in de frontend worden versleuteld. Zo zijn ze al versleuteld voor ze door de rest van de applicatie verwerkt worden. 
+Om de encryptie binnen de LockBox applicatie betrouwbaar te maken moeten de bestanden in de frontend worden versleuteld. Zo zijn ze al versleuteld voor dat ze door de rest van de applicatie verwerkt worden. Dit principe heeft ook een naam: *end-to-end encryption*. Dit is een standaard in hedendaagse technologie, en LockBox voldoet hier nog niet aan. 
+
+### Snelheid
+Een makkelijke oplossing zou zijn om simpelweg in JavaScript een implementatie te gebruiken van `AES-GCM` en de bestanden op die manier in de frontend versleutelen. Voor LockBox is het echter belangrijk dat het versleutelen van de bestanden snel verloopt aangezien gebruikers vaak meerdere bestanden tegelijkertijd willen uploaden. Als dit door de encryptie te lang duurt zal de gebruiker mogelijk naar een andere applicatie overstappen.
 
 ---
 ## Criteria
@@ -27,7 +30,7 @@ De volgende criteria zijn belangrijk voor het LockBox project en het encryptie p
 ### Bestand opslaan tijd
 (Should have) [Non functional requirement 6](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements) van het LockBox project luidt: *"Het opslaan van een bestand duurt maximaal 1 minuut."* Dit geldt uiteraard voor de ervaring van de gebruiker, en WebAssembly zou deze tijd kunnen verlengen bij een slechte performance. 
 
-Voor deze non-functional requirement zal het gebruik van WebAssembly gelukkig niet veel uit moeten maken aangezien het de huidige JavaScript implementatie kan vervangen. 
+Voor deze non-functional requirement zal het gebruik van WebAssembly waarschijnlijk positief uitpakken aangezien het de huidige JavaScript implementatie kan vervangen. En bij [deelvraag 1](https://rikdgd.github.io/rikdegoede-s6-docs/docs/design-oriented-research/onderzoek-webassembly/wat-is-wasm) hebben we al achterhaald dat WebAssembly meestal een goede keuze is voor cryptografie. 
 
 ### Bestand's grootte
 (Should have) [Non functional requirement 15](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document/#non-functional-requirements) luidt: *"Gebruikers kunnen bestanden opslaan met een maximale grote van `1 GB`"*. Dit wil zeggen dat de applicatie ook in staat moet zijn om bestanden van dit formaat te versleutelen. Deze eis is voornamelijk in combinatie met de snelheidsvereisten mogelijk lastig te combineren. 
