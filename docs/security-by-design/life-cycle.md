@@ -79,6 +79,24 @@ Tijdens het ontwikkelen van het product zijn ook een aantal maatregelen genomen 
 
 Ten eerste is voor development een docker compose omgeving opgezet met hierin een testing database voor bestanden. Zo kunnen de file upload en download functionaliteiten  makkelijk worden getest zonder de daadwerkelijke gebruikers gegevens op het spel te zetten. 
 
+In de `file storage service` is een (security)configuratie opgezet. Deze configuratie wordt onder andere gebruikt om de bestand-grote te limiteren en ziet er als volgt uit:
+```toml
+[default]
+address = "127.0.0.1"
+port = 8081
+workers = 16
+log_level = "critical"
+cli_colors = false
+ident = "FileStorageService"
+
+[default.limits]
+form = "64 kB"
+json = "1 MiB"
+msgpack = "2 MiB"
+"file" = "1 GiB"
+```
+Zoals te zien kunnen geuploade bestanden maximaal een grote van 1 GiB hebben, dit is in lijn met [non-functional requirement 15](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document#non-functional-requirements). Ook is het `log_level` naar critical gezet zodat het Rocket framework ook deze uploads bijhoudt. Verder is er ook een logging message toegevoegd aan het uploaden van een bestand zodat hierbij ook extra informatie meegegeven kan worden zoals de gebruiker die het bestand (probeerde) uploaden. Tot slot zijn er ook limieten ingesteld voor `form` en `json` data om het moeilijker te maken hier grote payloads te injecteren, mocht dit mogelijk zijn. 
+
 Verder zijn voor de verschillende secrets, zoals bijvoorbeeld de connection string van de file database, steeds environment variables gebruikt in combinatie met lokale `.env` bestanden. Zo is voorkomen dat gevoelige data wordt gelekt, zonder dat dit veel moeite kost tijdens development.
 
 Het LockBox project maakt ook gebruik van verschillende CI/CD pipelines. Hieraan is Snyk toegevoegd om automatisch SAST toe te passen op de LockBox applicatie. Voor het uploaden en downloaden van bestanden is het vooral belangrijk dat de applicatie goede input validation heeft. Zo niet dan zouden gebruikers namelijk bestanden kunnen uploaden die bijvoorbeeld te groot zijn, dit zou namelijk voor financiële problemen kunnen zorgen.  Om dit te voorkomen is daarom het testen van de frontend vooral van belang. Het testen van de file storage service is ook geprobeerd, maar deze is in `Rust` geschreven en hiervoor hebben de populairste SAST tools (waaronder Snyk) nog geen support. 
@@ -88,28 +106,18 @@ Om te testen dat file uploads goed werken is load testing uitgevoerd met een sti
 
 Zoals al vermeld bij **"4. Developing Product"** wordt Snyk SAST gebruikt om te controleren of de frontend applicatie vulnerabilities bevat. Voor de file uploads (US-01) is het vooral belangrijk dat de frontend geen vulnerabilities bevat rondom "insecure input sanitization". Een onveilige sanitization zou ertoe kunnen leiden dat gebruikers bestanden kunnen uploaden die zij niet zouden moeten mogen uploaden. 
 
-
-
-- Automated testing
-	- unit tests
-	- Snyk SAST (ook hier, in beide fases wordt dit gebruikt)
-- GitHub Actions pipelines
-	- Gebruik van secrets in pipelines
+Ook DAST wordt uitgevoerd op de LockBox applicatie. Hiervoor wordt OWASP ZAP gebruikt in een GitHub actions pipeline zodat deze tests automatisch worden uitgevoerd. Door de backend met DAST te controleren kan ook worden achterhaald of er potentieel fouten zitten in de validatie bij het uploaden van een bestand. 
 
 ## 6. Deployment and Maintenance of Products
 De LockBox applicatie draait in een Kubernetes cluster door gebruik te maken van **Docker** images. De applicatie wordt daarom als docker images gedeployed naar Docker Hub, Kubernetes kan deze automatisch ophalen. 
 
 De services in het LockBox cluster worden gemonitord met behulp van **Prometheus** en **Grafana**. Zo is er altijd een dashboard aanwezig met de huidige status van de applicatie. Momenteel wordt het cluster en .NET gemonitored, in de toekomst is het hoogstens aan te raden om ook de file downloads/uploads te monitoren. Hiervoor zal een custom metric nodig zijn. 
 
-Ook is logging is geïmplementeerd voor het LockBox project. Zo worden bijvoorbeeld ook de file uploads ge- logged. Hierbij wordt bijgehouden hoe lang het uploaden van het bestand duurde vanwege non-functional requirement: *"bla"*
+Ook is logging is geïmplementeerd voor het LockBox project. Zo worden bijvoorbeeld ook de file uploads ge- logged. Hierbij wordt bijgehouden hoe lang het uploaden van het bestand duurde vanwege de non-functional requirement: *"Het opslaan van een bestand duurt maximaal 1 minuut."*
 ```rust
 info!("File uploaded in {} millis by user: {}", now.elapsed().unwrap().as_millis(), message.user_id);
 ```
 
 
-- Deployement to dockerhub (voor scalable NF)
+- Deployment to dockerhub (voor scalable NF)
 	- gebruik secrets
-- logging
-- Monitoring
-	- prometheus
-	- grafana
