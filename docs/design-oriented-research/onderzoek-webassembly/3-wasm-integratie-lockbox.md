@@ -70,9 +70,9 @@ Deze simpele HTML pagina laadt de WebAssembly library in door de `init` functie 
 Ook is het belangrijk dat de JavaScript code van het type `module` is om het gebruik van WebAssembly mogelijk te maken. Anders kunnen de `init` functie en WebAssembly bindings niet geïmporteerd worden. 
 
 ### Resultaat
-Er is nu een minimale implementatie voor het versleutelen van bestanden in de frontend aanwezig. Helaas kan deze nog niet gebruikt worden zoals deze er nu uitziet aangezien *random number generation* niet werkt in de huidige implementatie. Dit is nodig voor encryptie een maakt de huidige versie onbruikbaar. Helaas was er alleen niet genoeg tijd over in de hackathon om dit werkend te krijgen. Het probleem zou opgelost kunnen worden door de volgende handleiding te volgen: https://docs.rs/getrandom/latest/getrandom/#webassembly-support
+Er is nu een minimale implementatie voor het versleutelen van bestanden in de frontend aanwezig. Helaas heeft deze implementatie wel een minpunt. Er is namelijk een outdated versie van de `getrandom` package gebruikt aangezien de nieuwe, veilige versie nog geen support heeft voor WebAssembly. Dit maakt dat deze AES-GCM implementatie niet veilig gebruikt kan worden. Hiervoor zal eerst support voor de nieuwe versie moeten worden ontwikkeld. 
 
-Wel is nu duidelijk hoe de WebAssembly implementatie gebruikt kan worden in de frontend. Dit is een goede stap aangezien de frontend hier nu al op ingericht zou kunnen worden. 
+Wel is het nu mogelijk om deze (onveilige) implementatie te gebruiken voor het verder testen en ontwikkelen van de software. Hoe de WebAssembly package gebruikt moet worden is namelijk al duidelijk. 
 
 ---
 

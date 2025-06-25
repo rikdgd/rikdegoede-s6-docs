@@ -9,7 +9,5 @@ de hoofdvraag van dit onderzoek: **"Hoe kan WebAssembly ingezet worden bij het v
 ## Performance test
 Voor de LockBox applicatie is de snelheid waarop de encryptie plaatsvind van belang volgens non-functional requirement 6: *"Het opslaan van een bestand duurt maximaal 1 minuut"*. Daarom is een performance test uitgevoerd op `AES-GCM` implementaties in WebAssembly en JavaScript om te zien welke een snellere encryptie tijd heeft. Dit gaf de volgende resultaten:
 
-*resultaten hier...*
-
-### Verbeterpunten test
-Bij deelvraag 3 
+### WebAssembly / Rust implementatie
+*Waarom werkt het niet :(*
