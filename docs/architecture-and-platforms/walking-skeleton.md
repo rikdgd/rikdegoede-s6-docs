@@ -5,6 +5,7 @@ sidebar_position: 2
 
 Er zijn in het design van de LockBox applicatie een aantal keuzes gemaakt wat betreft de gebruikte technologieën. Om te controleren of de bedachte tech-stack daadwerkelijk goed uitpakt is een *"walking skeleton"* opgezet. 
 
+
 Een walking skeleton is een minimalistische implementatie van de architectuur. Dit wil zeggen dat een walking skeleton **geen** functionaliteit zal bevatten. Het doel van een walking skeleton is om te controleren dat het gemaakte design uitvoerbaar is. 
 
 ## Componenten
