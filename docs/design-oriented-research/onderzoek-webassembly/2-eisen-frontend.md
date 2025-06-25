@@ -34,3 +34,11 @@ Voor deze non-functional requirement zal het gebruik van WebAssembly waarschijnl
 
 ### Bestand's grootte
 (Should have) [Non functional requirement 15](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/analyse-document/#non-functional-requirements) luidt: *"Gebruikers kunnen bestanden opslaan met een maximale grote van `1 GB`"*. Dit wil zeggen dat de applicatie ook in staat moet zijn om bestanden van dit formaat te versleutelen. Deze eis is voornamelijk in combinatie met de snelheidsvereisten mogelijk lastig te combineren. 
+
+### Encryptie in frontend
+De (should-have) non-functional requirement: *"Bestanden worden enkel versleuteld over het netwerk verstuurd"* is ook voor LockBox opgezet. De gebruikes bestanden zullen daarom in de frontend al versleuteld moeten worden. Anders was de huidige backend implementatie goed genoeg geweest. 
+
+---
+
+## Conclusie
+De huidige implementatie heeft duidelijk zijn problemen. Het is niet betrouwbaar voor gebruikers om encryptie in de backend uit te voeren, maar de performance is wel van belang. Een WebAssembly implementatie van encryptie kan mogelijk een goede oplossing bieden voor LockBox. Wel is het verstandig om te controleren of deze daadwerkelijk efficiënter zal zijn dan andere oplossingen. Anders is het namelijk moeilijk om te bepalen of WebAssembly daadwerkelijk beter is dan bijvoorbeeld JavaScript. 
