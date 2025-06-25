@@ -15,24 +15,37 @@ Ik heb dit semester al eerder gedaan, en als ik vergelijk wat ik toen en nu heb 
 ### Professional Standard
 Ik vind zelf dat ik goed werk heb geleverd voor deze leeruitkomst. De door mij opgeleverde documenten zijn professioneel en zoals verwacht bij een software product. Ik heb geregeld research uitgevoerd en heb hier verschillende methodes van het **DOT-framework** voor gebruikt. 
 
-### Investigative Problem-Solvig
-bla bla bla
+### Investigative Problem-Solving
+Voor het groepsproject heb ik onderzoek moeten uitvoeren naar Matlab en een model dat hier in geschreven is. Ook heb ik moeten onderzoeken hoe dit model gebruikt kan worden in een losgekoppelde omgeving. Hier heb ik uiteindelijk de eerste werkende versie voor opgezet en gedocumenteerd. Ik ben zelf erg tevreden met hoe ik dit samen met mijn groepsgenoten heb aangepakt. 
 
+Ook ben ik erg blij met het onderzoekje dat ik heb uitgevoerd naar WebAssembly. Het is een goede nieuwe techniek om onder de knie te hebben. Ook heb ik nu een goed beeld van de manier waarop het effectief geïmplementeerd kan worden. Wel heb ik te veel tijd in de ontwikkeling van de *proof of concept* gestoken. Een simpelere versie had voldoende kunnen zijn.
 
 ### Personal Leadership
-bla bla bla
+Ik heb dit semester goed bijgehouden wat mijn voortgang was voor iedere leeruitkomst, en heb hierdoor gericht feedback gevraagd. Dit heb ik dit semester een stuk beter gedaan dan in veel voorgaande semesters, dus ik ben hier erg tevreden mee. Het liet mij veel gerichter werken waardoor ik meer rust in mijn hoofd had. 
 
+Ook heb ik een stageplek gevonden bij het bedrijf **VECOZO**. Ik heb daarvoor eerst twee andere bedrijven benaderd die het beiden niet geworden zijn. Ik heb ook de *"Fontys career day"* bezocht om met verschillende bedrijven in gesprek te gaan, waaronder VECOZO. 
+
+Alhoewel ik blij ben met mijn "stage proces" heb ik wel een fout gemaakt die ik nooit meer maak. Ik heb namelijk een geheimhoudingsverklaring getekend voor deze te laten goedkeuren door Fontys. Gelukkig had ik al redelijk snel door dat ik een fout had gemaakt, maar dit veroorzaakt alsnog onnodig problemen. 
 
 ### Scalable Architectures
+Ik ben heel blij met hoe mijn [*"Load Testing"* onderzoek](https://rikdgd.github.io/rikdegoede-s6-docs/docs/scalable-architectures/Microservices/load-testing) is verlopen. Het document bevat veel visuele aspecten en ik ben blij met hoe ik monitoring heb toegepast om de non-functional requirements aan te tonen.
 
+Wel denk ik meer tijd had mogen steken in messaging. Ik heb daar dit semester wat minder aan gedaan dan de vorige keer dat ik dit semester deed. De documentatie hiervoor had uitgebreider kunnen zijn en ook verschillende patronen kunnen beschrijven. 
 
 ### Development and Operations
+Ik ben zelf erg tevreden met mijn CI/CD pipelines. Ik heb verschillende tools gebruikt en veel geleerd over de mogelijkheden met pipelines. Ook ben ik blij met hoe ik monitoring heb toegepast voor zowel load testing als het bewijzen van non-functional requirements.
 
+Wel had ik eerder in het semester moeten beginnen met het opzetten en volgen van een gedefinieerd ontwikkelproces zoals deze nu beschreven staat in het [*"Software Development Process"* document](https://rikdgd.github.io/rikdegoede-s6-docs/docs/DevSecOps/development-process). Hier ben ik namelijk pas in de laatste 3 sprints meer aandacht aan gaan besteden. Als ik dit eerder had opgepakt had ik beter gestructureerd kunnen ontwikkelen.
 
 ### Targeted Interaction
+Voor het groups project hebben we professioneel contact gehad met onze opdrachtgever. Ook hebben we er steeds voor gezorgd dat onze sprint oplevering op de opdrachtgever waren gericht wat algemene IT kennis betreft. Wij als groep, zowel als onze opdrachtgever zijn erg blij met hoe de opdracht en ons contact is verlopen.
 
+Ook hebben wij dit semester als groep uitzonderlijk goed samengewerkt. We hebben altijd goed contact met elkaar gehad en elkaar geholpen. Iedereen in de groep heeft een belangrijke rol gehad voor wat wij uiteindelijk hebben opgeleverd. Ik ben hier daarom erg tevreden mee. 
 
 ### Cloud native
-
+Ik heb verschillende cloud service gebruikt en onderzocht en heb zo geleerd waar ze goed voor zijn, maar ook wat de nadelen zijn aan cloud services. Ik ben daarom tevreden met hoe ik deze leeruitkomst heb afgerond. Wel had ik het beter gevonden als ik al eerder cloud services had gebruikt in mijn applicatie. Dit had mij namelijk simpelweg tijd kunnen besparen later in het project. 
 
 ### Security by Design
+Ik ben tevreden met hoe ik deze leeruitkomst heb afgerond. Ik heb duidelijk beschreven hoe welke risico's de LockBox applicatie loopt aan de hand van een [misuse-case diagram](https://rikdgd.github.io/rikdegoede-s6-docs/docs/Application-Design/Design-Document/#misuse-case-diagram) en een [risk assesment](https://rikdgd.github.io/rikdegoede-s6-docs/docs/security-by-design/risk-assessment). 
+
+Wel was het beter geweest als ik meer security gerelateerde non-functional requirements aan het begin van het semester had opgezet. Dit had het voor mezelf makkelijker gemaakt om security in het gehele proces gericht mee te nemen. 
